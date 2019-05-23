@@ -34,6 +34,11 @@ public class Member {
 	public String getPhone() {return phone;}
 	public void setPhone(String phone) {this.phone = phone;}
 	
+	@Override
+	public String toString() {
+		return "name : " + name;
+	}
+	
 	
 	
 }
