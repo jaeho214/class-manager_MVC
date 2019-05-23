@@ -9,6 +9,7 @@
 		function cancel(){
 			location.href="/login";
 		}
+		
 	</script>
 </head>
 <body>
