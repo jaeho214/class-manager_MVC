@@ -1,5 +1,8 @@
 package com.dev.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +31,12 @@ public class MemberController {
 		return "login";
 	}
 	
-	//메인 화면 페이지
-	@PostMapping("/main")
-	public String main() {
+	//로그인 성공
+	@PostMapping("/login.do")
+	public String loginComplete(Member member, HttpServletRequest request) {
+		//Member mem // = memberService.searchMember(member);
+		//HttpSession session = request.getSession();
+		//session.setAttribute("member", mem);
 		return "main";
 	}
 	
@@ -41,6 +47,10 @@ public class MemberController {
 		memberService.insert(member);
 		return "login";
 	}
+	
+	
+	
+	
 	
 	
 }
