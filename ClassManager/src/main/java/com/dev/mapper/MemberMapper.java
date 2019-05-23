@@ -9,8 +9,10 @@ public interface MemberMapper {
 	
 	
 	//회원가입
-	@Insert("INSERT INTO member(id,password,name,email, univ, major) VALUES (#{id}, #{password}, #{name}, #{email}, #{univ}, #{major})")
+	@Insert("INSERT INTO member(id,password,name,email, univ, major, phone) VALUES (#{id}, #{password}, #{name}, #{email}, #{univ}, #{major}, #{phone})")
 	public void insert(Member member);
+	
+	
 
 	
 }
