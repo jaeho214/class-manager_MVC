@@ -37,6 +37,7 @@ public class MemberController {
 	//회원가입 완료
 	@PostMapping("/signup.do")
 	public String siguUpComplete(Member member) {
+		member.getPassword();
 		memberService.insert(member);
 		return "login";
 	}

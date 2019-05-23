@@ -19,6 +19,8 @@
 		이메일<input type="text" name="email" maxlength="50"> </br>
 		대학교<input type="text" name="univ" /> </br>
 		전공<input type="text" name="major" /> </br>
+		전화번호<input type="text" name="phone" /> </br>
+		
 		<input type="submit" value="가입완료" /> 
 		<input type="button" value="취소" onclick="cancel()">
 	</form>
