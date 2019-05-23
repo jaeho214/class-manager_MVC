@@ -23,6 +23,6 @@ public class ClassManagerApplicationTests {
 
 	@Test
 	public void test1() {
-		System.out.println(memberMapper.getTime());
+		memberMapper.insertMember();
 	}
 }
