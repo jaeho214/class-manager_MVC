@@ -11,7 +11,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
-@PropertySource("classpath:/application.properties")
 public class DataBaseConfig {
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
@@ -19,7 +18,6 @@ public class DataBaseConfig {
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 
 		sessionFactory.setDataSource(dataSource);
-		sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
 		return sessionFactory.getObject();
 	}
 
