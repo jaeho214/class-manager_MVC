@@ -1,7 +1,5 @@
 package com.dev.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -16,10 +14,10 @@ public interface MemberMapper {
 	
 	//회원가입
 	@Select("SELECT * FROM member WHERE id = #{id}")
-	public List<Member> select(@Param("id") String id);
+	public Member selectAll(@Param("id") String id);
 	
 	@Insert("INSERT INTO member(id,password,name,email, univ, major, phone) VALUES (#{id}, #{password}, #{name}, #{email}, #{univ}, #{major}, #{phone})")
-	public void insert(Member member);
+	public void insertNewMember(Member member);
 	
 	// 미완성
 	@Update("UPDATE member SET id = #{id}, password = #{password}, name = #{name}, email = #{email}, univ = #{univ}, major=#{major}, phone=#{phone}) WHERE id=#{id}")
@@ -27,9 +25,8 @@ public interface MemberMapper {
 	
 	@Delete("DELETE FROM member WHERE id = #{id}")
 	public void delete(@Param("id") String id);
-	
-	
-	
 
+	
+	
 	
 }
