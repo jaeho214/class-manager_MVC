@@ -1,7 +1,5 @@
 package com.dev.service.Impl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.dev.domain.Member;
@@ -19,14 +17,14 @@ public class MemberServiceImpl implements MemberService {
 	
 	// SELECT
 	@Override
-	public List<Member> select(String id) {
-		return memberMapper.select(id);
+	public Member selectAll(String id) {
+		return memberMapper.selectAll(id);
 	}
 	
 	// INSERT
 	@Override
-	public void insert(Member member) {
-		memberMapper.insert(member);
+	public void insertNewMember(Member member) {
+		memberMapper.insertNewMember(member);
 	}
 	
 	// UPDATE

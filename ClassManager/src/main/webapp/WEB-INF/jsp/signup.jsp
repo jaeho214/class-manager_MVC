@@ -1,5 +1,12 @@
+<%@page import="com.dev.domain.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<% request.setCharacterEncoding("euc-kr"); %>
+
+<%
+	Member member = (Member)session.getAttribute("member");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +20,7 @@
 	</script>
 </head>
 <body>
+	
 	<form method="post" action="/signup.do">
 		아이디 <input type="text" name="id" maxlength="50"> </br>
 		비밀번호<input type="password" name="password" maxlength="50"> </br> 
@@ -25,6 +33,5 @@
 		<input type="submit" value="가입완료" /> 
 		<input type="button" value="취소" onclick="cancel()">
 	</form>
-
 </body>
 </html>
