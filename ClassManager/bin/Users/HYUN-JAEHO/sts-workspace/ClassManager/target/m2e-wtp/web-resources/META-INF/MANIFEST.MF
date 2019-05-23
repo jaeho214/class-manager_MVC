@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: ClassManager
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: HYUN-JAEHO
+Implementation-Vendor-Id: com.dev
+Build-Jdk: 1.8.0_192
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/ClassManager
+Created-By: Maven Integration for Eclipse
+
