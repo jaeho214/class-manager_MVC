@@ -1,5 +1,0 @@
-package com.dev.dao;
-
-public class MemberDao {
-	 
-}

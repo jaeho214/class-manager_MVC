@@ -4,8 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.dev.domain.Member;
+import com.dev.service.Impl.MemberServiceImpl;
+
 @Controller
 public class MemberController {
+	
+	MemberServiceImpl memberService;
+	
+	public MemberController(MemberServiceImpl memberService) {
+		this.memberService = memberService;
+	}
 	
 	//회원가입 페이지
 	@GetMapping("/signup")
@@ -27,7 +36,8 @@ public class MemberController {
 	
 	//회원가입 완료
 	@PostMapping("/signup.do")
-	public String siguUpComplete() {
+	public String siguUpComplete(Member member) {
+		memberService.insert(member);
 		return "login";
 	}
 	
