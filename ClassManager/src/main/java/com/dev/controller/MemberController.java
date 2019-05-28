@@ -1,6 +1,5 @@
 package com.dev.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -41,7 +40,7 @@ public class MemberController {
 			return "pwfail";
 		}
 		session.setAttribute("member", mem);
-		return "framework/Dashboard/main";
+		return "main";
 	}
 	
 	//회원가입 완료
@@ -61,7 +60,6 @@ public class MemberController {
 	
 	//회원 탈퇴 페이지
 	public String memberRemove(Member member, HttpSession session) {
-		
 		return "login";
 	}
 	
@@ -72,10 +70,6 @@ public class MemberController {
 		return "modify";
 	}
 	
-	@GetMapping("/home")
-	public String test() {
-		return "framework/Dashboard/index";
-	}
 	
 	
 	
