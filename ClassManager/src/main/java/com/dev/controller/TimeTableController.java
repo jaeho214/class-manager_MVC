@@ -10,4 +10,14 @@ public class TimeTableController {
 	public String makeTimeTable() {
 		return "timetable";
 	}
+	
+	@GetMapping("/date")
+	public String manageDate() {
+		return "date";
+	}
+	
+	@GetMapping("/assignment")
+	public String manageAssign() {
+		return "assignment";
+	}
 }
