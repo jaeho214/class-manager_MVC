@@ -35,15 +35,13 @@ public class MemberController {
 	@PostMapping("/login.do")
 	public String loginComplete(Member member, HttpSession session) {
 		Member mem = memberService.selectAll(member.getId());
-//		if(mem == null) {
-//			System.out.println("없는 아이디!!");
-//			return "login";
-//		}if(mem.getPassword() != member.getPassword()) {
-//			System.out.println("비밀번호 틀림!!");
-//			return "login";
-//		}
+		if(mem == null) {
+			return "idfail";
+		}if(!mem.getPassword().equals(member.getPassword())) {
+			return "pwfail";
+		}
 		session.setAttribute("member", mem);
-		return "main";
+		return "framework/Dashboard/main";
 	}
 	
 	//회원가입 완료
@@ -72,6 +70,11 @@ public class MemberController {
 	@PostMapping("/modify")
 	public String memberModify(Member member, HttpSession session) {
 		return "modify";
+	}
+	
+	@GetMapping("/home")
+	public String test() {
+		return "framework/Dashboard/index";
 	}
 	
 	
