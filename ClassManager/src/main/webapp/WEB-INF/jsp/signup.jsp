@@ -20,7 +20,6 @@
 	</script>
 </head>
 <body>
-	
 	<form method="post" action="/signup.do">
 		아이디 <input type="text" name="id" maxlength="50"> </br>
 		비밀번호<input type="password" name="password" maxlength="50"> </br> 

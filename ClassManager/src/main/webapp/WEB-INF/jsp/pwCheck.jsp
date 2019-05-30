@@ -1,5 +1,12 @@
+<%@page import="com.dev.domain.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+	
+<% request.setCharacterEncoding("euc-kr"); %>
+
+<%
+	Member member = (Member)session.getAttribute("member");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,24 +42,15 @@
               <div class="col-lg-12">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">ClassManager</h1>
+                    <h1 class="h4 text-gray-900 mb-4">회원 탈퇴</h1>
                   </div>
-                  <form action="/login.do" method="post" class="user">
+                  <form action="/remove" method="post" class="user">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" name="id" placeholder="ID">
+                      <input type="hidden" name="id" value= "<% out.print(member.getId());%>">
+                                      비밀번호 확인 : <input type="password" class="form-control form-control-user" name="password" >
                     </div>
-                    <div class="form-group">
-                      <input type="password" class="form-control form-control-user" name="password" placeholder="Password">
-                    </div>
-                    <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
+                    <input type="submit" value="회원 탈퇴" class="btn btn-primary btn-user btn-block">
                   </form>
-                  <hr>
-                  <div class="text-center">
-                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                  </div>
-                  <div class="text-center">
-                    <a class="small" href="/signup">Create an Account!</a>
-                  </div>
                 </div>
               </div>
         </div>

@@ -5,8 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+alert('회원 탈퇴가 완료되었습니다.');
+location.href="/login";
+</script>
 </head>
 <body>
-	Date Page
+
 </body>
 </html>
