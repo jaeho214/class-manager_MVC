@@ -5,8 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+alert('비밀번호가 틀렸습니다!!');
+location.href="/repwCheck";
+</script>
 </head>
 <body>
-	Date Page
+
 </body>
 </html>

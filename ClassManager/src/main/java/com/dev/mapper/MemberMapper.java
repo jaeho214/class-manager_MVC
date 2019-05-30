@@ -12,16 +12,17 @@ import com.dev.domain.Member;
 public interface MemberMapper {
 	
 	
-	//회원가입
+	//로그인시 아이디 찾기
 	@Select("SELECT * FROM member WHERE id = #{id}")
 	public Member selectAll(@Param("id") String id);
 	
+	//회원가입
 	@Insert("INSERT INTO member(id,password,name,email, univ, major, phone) VALUES (#{id}, #{password}, #{name}, #{email}, #{univ}, #{major}, #{phone})")
 	public void insertNewMember(Member member);
 	
-	// 미완성
-	@Update("UPDATE member SET id = #{id}, password = #{password}, name = #{name}, email = #{email}, univ = #{univ}, major=#{major}, phone=#{phone}) WHERE id=#{id}")
-	public void update(@Param("id") String id);
+
+	@Update("UPDATE member SET password = #{password}, name = #{name}, email = #{email}, univ = #{univ}, major=#{major}, phone=#{phone} WHERE id=#{id}")
+	public void update(Member member);
 	
 	@Delete("DELETE FROM member WHERE id = #{id}")
 	public void delete(@Param("id") String id);

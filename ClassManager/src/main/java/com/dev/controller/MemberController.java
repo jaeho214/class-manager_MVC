@@ -30,6 +30,11 @@ public class MemberController {
 		return "login";
 	}
 	
+	@GetMapping("/main")
+	public String main() {
+		return "main";
+	}
+	
 	//로그인 성공
 	@PostMapping("/login.do")
 	public String loginComplete(Member member, HttpSession session) {
@@ -58,16 +63,53 @@ public class MemberController {
 		return "login";
 	}
 	
-	//회원 탈퇴 페이지
+	//회원 탈퇴
+	@PostMapping("/remove")
 	public String memberRemove(Member member, HttpSession session) {
-		return "login";
+		Member mem = memberService.selectAll(member.getId());
+		if(mem.getPassword().equals(member.getPassword())) {
+			memberService.delete(member.getId());
+			session.invalidate();
+			return "removeComplete";
+		}
+		else {
+			return "pwCheckFail";
+		}
+	}
+	
+	//회원 탈퇴를 위한 비밀번호 확인
+	@PostMapping("pwCheck")
+	public String pwCheck() {
+		return "pwCheck";
+	}
+	
+	@GetMapping("repwCheck")
+	public String pwCheck2() {
+		return "pwCheck";
+	}
+	
+	@GetMapping("/memberInfo")
+	public String memberInfo() {
+		return "memberInfo";
 	}
 	
 	
 	//회원정보 수정 페이지
-	@PostMapping("/modify")
-	public String memberModify(Member member, HttpSession session) {
+	@GetMapping("/modify")
+	public String memberModify(Member member) {
 		return "modify";
+	}
+	
+	@PostMapping("modify.do")
+	public String modifyComplete(Member member, HttpSession session) {
+		if(member.getPassword().equals("")) {
+			return "inputCheck";
+		}
+		else {
+			memberService.update(member);
+			session.setAttribute("member", member);
+			return "main";
+		}
 	}
 	
 	
