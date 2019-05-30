@@ -51,9 +51,20 @@ public class MemberController {
 	//회원가입 완료
 	@PostMapping("/signup.do")
 	public String siguUpComplete(Member member) {
-		member.getPassword();
-		memberService.insertNewMember(member);
-		return "login";
+		Member mem = memberService.selectAll(member.getId());
+		if(mem == null) {
+			if(member.getPassword().equals("")) {
+				return "inputCheck";
+			}else {
+				member.getPassword();
+				memberService.insertNewMember(member);
+				return "login";
+			}
+			
+		}
+		else {
+			return "alreayExist";
+		}
 	}
 	
 	//로그아웃 완료
@@ -83,11 +94,13 @@ public class MemberController {
 		return "pwCheck";
 	}
 	
+	//비밀번호 확인에 실패했을 때 다시 입력
 	@GetMapping("repwCheck")
 	public String pwCheck2() {
 		return "pwCheck";
 	}
 	
+	//회원정보 확인
 	@GetMapping("/memberInfo")
 	public String memberInfo() {
 		return "memberInfo";
@@ -100,6 +113,7 @@ public class MemberController {
 		return "modify";
 	}
 	
+	//회원정보 수정 완료
 	@PostMapping("modify.do")
 	public String modifyComplete(Member member, HttpSession session) {
 		if(member.getPassword().equals("")) {
