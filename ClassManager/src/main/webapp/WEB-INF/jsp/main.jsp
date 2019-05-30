@@ -177,7 +177,7 @@
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card-body">
                       <div class="h5 mb-0 font-weight-bold text-gray-800">
-                     	 		<a href="/#timetableModal" class="d-none d-sm-inline-block btn btn-sm btn-primary btn-lg btn-block">
+                     	 		<a href="/timetable" data-toggle="modal" data-target="#timeTableModal" class="d-none d-sm-inline-block btn btn-sm btn-primary btn-lg btn-block">
                      	 		<i class="fas fa-sm text-white-500"></i> 시간표 추가 +</a>
                       </div>
                 </div>
@@ -224,7 +224,7 @@
           </button>
         </div>
         <div class="modal-body">
-			<!-- 시간표 입력 -->
+			<!--  -->
 		</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
