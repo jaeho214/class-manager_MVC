@@ -94,11 +94,13 @@ public class MemberController {
 		return "pwCheck";
 	}
 	
+	//비밀번호 확인에 실패했을 때 다시 입력
 	@GetMapping("repwCheck")
 	public String pwCheck2() {
 		return "pwCheck";
 	}
 	
+	//회원정보 확인
 	@GetMapping("/memberInfo")
 	public String memberInfo() {
 		return "memberInfo";
@@ -111,6 +113,7 @@ public class MemberController {
 		return "modify";
 	}
 	
+	//회원정보 수정 완료
 	@PostMapping("modify.do")
 	public String modifyComplete(Member member, HttpSession session) {
 		if(member.getPassword().equals("")) {
