@@ -51,9 +51,20 @@ public class MemberController {
 	//회원가입 완료
 	@PostMapping("/signup.do")
 	public String siguUpComplete(Member member) {
-		member.getPassword();
-		memberService.insertNewMember(member);
-		return "login";
+		Member mem = memberService.selectAll(member.getId());
+		if(mem == null) {
+			if(member.getPassword().equals("")) {
+				return "inputCheck";
+			}else {
+				member.getPassword();
+				memberService.insertNewMember(member);
+				return "login";
+			}
+			
+		}
+		else {
+			return "alreayExist";
+		}
 	}
 	
 	//로그아웃 완료
