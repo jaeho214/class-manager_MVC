@@ -8,4 +8,5 @@ public interface TimeTableService {
 	public List<TimeTable> selectAllTimeTable();
 	public void insertName(String name);
 	public long selectRecentNo();
+
 }

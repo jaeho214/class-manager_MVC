@@ -1,6 +1,7 @@
 package com.dev.domain;
 
 public class TimeTable {
+
 	private long tno;
 	private String name;
 	
@@ -16,6 +17,5 @@ public class TimeTable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 	
 }

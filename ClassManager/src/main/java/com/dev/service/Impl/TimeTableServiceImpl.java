@@ -14,6 +14,7 @@ public class TimeTableServiceImpl implements TimeTableService {
 	private TimeTableMapper timeTableMapper;
 	
 	public TimeTableServiceImpl(TimeTableMapper timeTableMapper) {
+
 		this.timeTableMapper = timeTableMapper;
 	}
 	
@@ -33,4 +34,6 @@ public class TimeTableServiceImpl implements TimeTableService {
 		long maxNo = timeTableMapper.selectRecentNo();
 		return maxNo;
 	}
+
+
 }
