@@ -5,8 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+alert('수업이 추가되었습니다.');
+location.href="/inputComplete";
+</script>
 </head>
 <body>
-	TimeTable Page
+
 </body>
 </html>

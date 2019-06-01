@@ -1,10 +1,18 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="com.dev.domain.Classes"%>
 <%@page import="com.dev.domain.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% request.setCharacterEncoding("euc-kr"); %>
 
 <%
 	Member member = (Member)session.getAttribute("member");
+	String name = (String)session.getAttribute("name");
+	List<Classes> classes = (List<Classes>)session.getAttribute("classes");
+	long num = 0L;
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -24,21 +32,21 @@
 
 <title>Main</title>
 
-<!-- Custom fonts for this template-->
+
 <link href="resource/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
-<!-- Custom styles for this template-->
+
 <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
 
 <title>Insert title here</title>
 </head>
 <body id="page-top">
 
-	<!-- Page Wrapper -->
+
 	<div id="wrapper">
 
 		<!-- Sidebar -->
@@ -47,8 +55,9 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="/main">
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="#">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -75,7 +84,8 @@
 				</div></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
+			<li class="nav-item">
+			<a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseUtilities"
 				aria-expanded="true" aria-controls="collapseUtilities"> <span>과제 관리</span>
 			</a>
@@ -83,13 +93,12 @@
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Custom Utilities:</h6>
-						<a class="collapse-item" href="utilities-color.html">Colors</a> <a
-							class="collapse-item" href="utilities-border.html">Borders</a> <a
-							class="collapse-item" href="utilities-animation.html">Animations</a>
+						<a class="collapse-item" href="utilities-color.html">Colors</a> 
+						<a class="collapse-item" href="utilities-border.html">Borders</a> 
+						<a class="collapse-item" href="utilities-animation.html">Animations</a>
 						<a class="collapse-item" href="utilities-other.html">Other</a>
 					</div>
-				</div>
-			</li>
+				</div></li>
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
@@ -109,8 +118,7 @@
 						<a class="collapse-item" href="404.html">404 Page</a> 
 						<a class="collapse-item" href="blank.html">Blank Page</a>
 					</div>
-				</div>
-			</li>
+				</div></li>
 
 
 			<!-- Divider -->
@@ -135,8 +143,7 @@
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 					<!-- Sidebar Toggle (Topbar) -->
-					<button id="sidebarToggleTop"
-						class="btn btn-link d-md-none rounded-circle mr-3">
+					<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
 						<i class="fa fa-bars"></i>
 					</button>
 
@@ -146,19 +153,18 @@
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow">
 						<a class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-						<span class="mr-2 d-none d-lg-inline text-gray-600 small">
-									<% out.println(member.getName()); %> 님
-						</span>
+							role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+							<span class="mr-2 d-none d-lg-inline text-gray-600 small">
+									<%out.println(member.getName());%> 님
+							</span>
 						</a> <!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="/memberInfo"> 
-								<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile </a>
+									<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/logout" data-toggle="modal"
-									data-target="#logoutModal"> 
+								<a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal"> 
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
 								</a>
@@ -176,16 +182,56 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">시간표</h1>
+						<h1 class="h3 mb-0 text-gray-800">시간표 등록</h1>
+					</div >
+					<div class="col-md-3 mb-4">
+						<div>
+							<c:if test="${name == null}">
+								<form action="/inputTitle" method="get" name="form1">
+									<input type="text" name="name" class="form-control-lg" placeholder="시간표 제목"> 
+									<input type="submit" class = "btn btn-lg btn-primary" value="확인">
+								</form>
+							</c:if>
+							<c:if test="${name != null}">
+								<p>
+								<h1>
+									<% out.println(name); %>
+								</h1>
+								</p>
+							</c:if>
+
+						</div>
+
+					
+					<div>
+						<c:forEach var="item" items="<%=classes %>">
+							<p>
+							<li>${item}</li>
+							</p>
+						</c:forEach>
+					</div>
+
+					<div>
+						<div class="card-body">
+							<div class="h5 mb-0 font-weight-bold text-white">
+								<a data-toggle="modal" data-target="#timeTableModal" class="btn btn-primary btn-block"> 
+									수업 추가
+								</a>
+							</div>
+						</div>
+				</div>
+
+					</div>
+					<div class="h1 mb-4 font-weight-bold text-gray-800">
+						<a href="/makeTimeTable" class="col-lg-3 btn btn-primary btn-block" style="height: 100px; float: none; margin: 0 auto"> 
+							<i class="fas fa-sm text-white-500"></i>
+							<h2>시간표 생성</h2>
+						</a>
 					</div>
 				</div>
+	
 				<!-- /.container-fluid -->
-				<div class="h1 mb-4 font-weight-bold text-gray-800">
-					<a href="/inputClass" class="col-lg-5 btn btn-primary btn-block" style="height: 100px; float: none; margin: 0 auto"> 
-					<i class="fas fa-sm text-white-500"></i>
-						<h1>시간표 추가 +</h1>
-					</a>
-				</div>
+
 			</div>
 			<!-- End of Main Content -->
 
@@ -210,6 +256,41 @@
 		class="fas fa-angle-up"></i>
 	</a>
 
+	<!-- TimeTable Modal -->
+	<div class="modal fade" id="timeTableModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<form action="timetable.do" method="post" name="form2">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">시간표 생성</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">
+
+						<input type="text" class="form-control form-control-user" name="number" placeholder="학수번호"> <br>
+						<input type="text" class="form-control form-control-user" name="subject" placeholder="과목명"> <br>
+						시간 : <input type="time" class="form-control form-control-user" name="time" placeholder="시간"> <br>
+						<input type="text" class="form-control form-control-user" name="date" placeholder="요일"> <br>
+						<input type="text" class="form-control form-control-user" name="professor" placeholder="교수명"> <br>
+						<input type="text" class="form-control form-control-user" name="room" placeholder="강의실"> <br>
+						<input type="text" class="form-control form-control-user" name="credit" placeholder="학점"> <br>
+						<input type="hidden" name="table_no" value="<%out.print(num);%>"> <select name="kinds" class="form-control form-control-user">
+							<option value="전공">전공</option>
+							<option value="교양">교양</option>
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+						<input type="submit" class="btn btn-secondary" value="추가">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
 	<!-- Logout Modal-->
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -217,15 +298,13 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
 				<div class="modal-body">로그아웃 하시겠습니까?</div>
 				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">취소</button>
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
 					<a class="btn btn-primary" href="/logout">로그아웃</a>
 				</div>
 			</div>

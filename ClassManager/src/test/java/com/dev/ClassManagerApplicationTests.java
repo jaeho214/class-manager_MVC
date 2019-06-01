@@ -1,11 +1,15 @@
 package com.dev;
 
+import java.sql.Time;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.dev.domain.Classes;
+import com.dev.mapper.ClassesMapper;
 import com.dev.mapper.MemberMapper;
 
 @RunWith(SpringRunner.class)
@@ -13,7 +17,7 @@ import com.dev.mapper.MemberMapper;
 public class ClassManagerApplicationTests {
 
 	@Autowired
-	MemberMapper memberMapper;
+	ClassesMapper mapper;
 
 //	@Test
 //	public void contextLoads() {
@@ -21,7 +25,7 @@ public class ClassManagerApplicationTests {
 	
 	@Test
 	public void test() {
-		memberMapper.delete("spawn");
+		
 	}
 	
 
