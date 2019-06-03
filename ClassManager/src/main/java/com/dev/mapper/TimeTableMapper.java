@@ -18,3 +18,4 @@ public interface TimeTableMapper {
 	public void insertName(String name, String user_id);
 	
 }
+
