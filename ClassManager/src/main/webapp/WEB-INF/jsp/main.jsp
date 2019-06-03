@@ -1,6 +1,7 @@
 <%@page import="com.dev.domain.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% request.setCharacterEncoding("euc-kr"); %>
 
 <%
@@ -69,26 +70,16 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">시간표 목록</h6>
-						<a class="collapse-item" href="buttons.html">1학년 1학기</a> <a
-							class="collapse-item" href="cards.html">1학년 2학기</a>
+						<c:forEach var="timetable" items="${timetableList}">
+							<a class="collapse-item" href="/timetable?id=${timetable.tno}">${timetable.name}</a> 					
+						</c:forEach>
 					</div>
 				</div></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapseUtilities"
-				aria-expanded="true" aria-controls="collapseUtilities"> <span>과제 관리</span>
+			<li class="nav-item">
+			<a class="nav-link collapsed" href="/assignment"> <span>과제 관리</span>
 			</a>
-				<div id="collapseUtilities" class="collapse"
-					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Custom Utilities:</h6>
-						<a class="collapse-item" href="utilities-color.html">Colors</a> <a
-							class="collapse-item" href="utilities-border.html">Borders</a> <a
-							class="collapse-item" href="utilities-animation.html">Animations</a>
-						<a class="collapse-item" href="utilities-other.html">Other</a>
-					</div>
-				</div>
 			</li>
 
 			<!-- Nav Item - Pages Collapse Menu -->
@@ -186,6 +177,7 @@
 						<h1>시간표 추가 +</h1>
 					</a>
 				</div>
+				<a href="/makeTimetable">테스트</a>
 			</div>
 			<!-- End of Main Content -->
 

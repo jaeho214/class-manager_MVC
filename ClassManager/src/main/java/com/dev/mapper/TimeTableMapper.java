@@ -14,7 +14,7 @@ public interface TimeTableMapper {
 	@Select("Select max(tno) from timetable")
 	public long selectRecentNo();
 	
-	@Insert("Insert into timetable (name) values (#{name})")
-	public void insertName(String name);
+	@Insert("Insert into timetable (name, user_id) values (#{name}, #{user_id})")
+	public void insertName(String name, String user_id);
 	
 }

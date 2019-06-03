@@ -1,18 +1,11 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@page import="com.dev.domain.Classes"%>
 <%@page import="com.dev.domain.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% request.setCharacterEncoding("euc-kr"); %>
 
 <%
 	Member member = (Member)session.getAttribute("member");
-	String name = (String)session.getAttribute("name");
-	//List<Classes> classes = (List<Classes>)session.getAttribute("classes");
-	long num = 0L;
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -32,21 +25,21 @@
 
 <title>Main</title>
 
-
+<!-- Custom fonts for this template-->
 <link href="resource/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
-
+<!-- Custom styles for this template-->
 <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
 
 <title>Insert title here</title>
 </head>
 <body id="page-top">
 
-
+	<!-- Page Wrapper -->
 	<div id="wrapper">
 
 		<!-- Sidebar -->
@@ -55,9 +48,7 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="#">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -85,8 +76,7 @@
 				</div></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item">
-			<a class="nav-link collapsed" href="#"
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapseUtilities"
 				aria-expanded="true" aria-controls="collapseUtilities"> <span>과제 관리</span>
 			</a>
@@ -99,7 +89,8 @@
 						<a class="collapse-item" href="utilities-animation.html">Animations</a>
 						<a class="collapse-item" href="utilities-other.html">Other</a>
 					</div>
-				</div></li>
+				</div>
+			</li>
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
@@ -119,7 +110,8 @@
 						<a class="collapse-item" href="404.html">404 Page</a> 
 						<a class="collapse-item" href="blank.html">Blank Page</a>
 					</div>
-				</div></li>
+				</div>
+			</li>
 
 
 			<!-- Divider -->
@@ -144,7 +136,8 @@
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 					<!-- Sidebar Toggle (Topbar) -->
-					<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+					<button id="sidebarToggleTop"
+						class="btn btn-link d-md-none rounded-circle mr-3">
 						<i class="fa fa-bars"></i>
 					</button>
 
@@ -154,18 +147,19 @@
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow">
 						<a class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-							<span class="mr-2 d-none d-lg-inline text-gray-600 small">
-									<%out.println(member.getName());%> 님
-							</span>
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">
+						<span class="mr-2 d-none d-lg-inline text-gray-600 small">
+									<% out.println(member.getName()); %> 님
+						</span>
 						</a> <!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="/memberInfo"> 
-									<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a>
+								<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile </a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal"> 
+								<a class="dropdown-item" href="/logout" data-toggle="modal"
+									data-target="#logoutModal"> 
 									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
 								</a>
@@ -175,53 +169,70 @@
 					</ul>
 
 				</nav>
-				<!-- End of Topbar -->
 
-				<!-- Begin Page Content -->
 				<div class="container-fluid">
-					<h1 class="h3 mb-0 text-dark">시간표 등록</h1>
-						<c:if test="${name == null}">
-								<form action="/inputTitle" method="get" name="form1">
-									<input type="text" name="name" class="form-control-lg" placeholder="시간표 제목"> 
-									<input type="submit" class = "text-dark btn btn-lg btn-primary" value="확인">
-								</form>
-						</c:if>
-						<c:if test="${name != null}">
-								<p>
-								<h1>
-									<% out.println(name); %>
-								</h1>
-								</p>
-						</c:if>
-
-
-					
-					<table>
-						수업 목록<br><br>
-						<c:forEach var="item" items="${classes}">
-							<tr>
-								<td>${item.subject}</td>
-								<td></td>
-								<td><a data-toggle="modal" data-target="#timeTableDeleteModal" class="font-weight-bold text-white btn btn-primary btn-sm btn-block"> 
-									삭제
-								</a></td>
-							</tr>
-						</c:forEach>
-					</table>
-					<br>
-						<a data-toggle="modal" data-target="#timeTableModal" class="h5 mb-0 font-weight-bold text-white btn btn-primary"> 
-							수업 추가
-						</a>
-						<br><br>
-
-
-						<a href="/makeTimeTable" class="col-md-3 btn btn-success" style="height: 90px; float: none; margin: 0 auto"> 
-							<i class="fas fa-sm text-white-500"></i>
-							<h3>시간표 생성</h3>
-						</a>
+					<!-- 시간표 -->
+					<table cellspacing="10" align="center" border="1" bordercolor="003333" width="650" height="700"> 
+					<p></p>
+						<tr align="center"> 
+							<td width="50"></td> 
+							<td width="100">월요일</td> 
+							<td width="100">화요일</td> 
+							<td width="100">수요일</td> 
+							<td width="100">목요일</td> 
+							<td width="100">금요일</td> 
+						</tr> 
+						<tr align="center" id="one"> 
+							<td>09:00</td>
+							<td>${MON0900}</td> 
+							<td>${TUE0900}</td>  
+							<td>${WED0900}</td> 
+							<td>${THU0900}</td> 
+							<td>${FRI0900}</td> 
+						</tr> 
+						<tr align="center"> 
+							<td>10:30</td> 
+							<td>${MON1030}</td> 
+							<td>${TUE1030}</td>  
+							<td>${WED1030}</td> 
+							<td>${THU1030}</td> 
+							<td>${FRI1030}</td>  
+						</tr> 
+						<tr align="center"> 
+							<td>12:00</td> 
+							<td>${MON1200}</td> 
+							<td>${TUE1200}</td>  
+							<td>${WED1200}</td> 
+							<td>${THU1200}</td> 
+							<td>${FRI1200}</td> 
+						</tr> 
+						<tr align="center"> 
+							<td>13:30</td> 
+							<td>${MON1330}</td> 
+							<td>${TUE1330}</td>  
+							<td>${WED1330}</td> 
+							<td>${THU1330}</td> 
+							<td>${FRI1330}</td> 
+						</tr> 
+						<tr align="center"> 
+							<td>15:00</td> 
+							<td>${MON1500}</td> 
+							<td>${TUE1500}</td>  
+							<td>${WED1500}</td> 
+							<td>${THU1500}</td> 
+							<td>${FRI1500}</td> 
+						</tr> 
+						<tr align="center"> 
+							<td>16:30</td> 
+							<td>${MON1630}</td> 
+							<td>${TUE1630}</td>  
+							<td>${WED1630}</td> 
+							<td>${THU1630}</td> 
+							<td>${FRI1630}</td> 
+						</tr> 
+				</table>
+							
 				</div>
-
-				<!-- /.container-fluid -->
 
 			</div>
 			<!-- End of Main Content -->
@@ -247,72 +258,6 @@
 		class="fas fa-angle-up"></i>
 	</a>
 
-	<!-- TimeTable Insert Modal -->
-	<div class="modal fade" id="timeTableModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<form action="inputClass.do" method="post" name="form2">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">시간표 생성</h5>
-						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-
-						<input type="text" class="form-control form-control-user" name="number" placeholder="학수번호"> <br>
-						<input type="text" class="form-control form-control-user" name="subject" placeholder="과목명"> <br>
-						시간 : <input type="time" class="form-control form-control-user" name="time" placeholder="시간"> <br>
-						요일 : 
-						<input type="checkbox" name="date" value="MON">월요일
-						<input type="checkbox" name="date" value="TUE">화요일
-						<input type="checkbox" name="date" value="WED">수요일
-						<input type="checkbox" name="date" value="THU">목요일
-						<input type="checkbox" name="date" value="FRI">금요일
-						<br>
-						<input type="text" class="form-control form-control-user" name="professor" placeholder="교수명"> <br>
-						<input type="text" class="form-control form-control-user" name="room" placeholder="강의실"> <br>
-						<input type="text" class="form-control form-control-user" name="credit" placeholder="학점"> <br>
-						<input type="hidden" name="table_no" value="<%out.print(num);%>"> <select name="kinds" class="form-control form-control-user">
-							<option value="전공">전공</option>
-							<option value="교양">교양</option>
-						</select>
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-						<input type="submit" class="btn btn-secondary" value="추가">
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-	
-	<!-- TimeTable Delete Modal -->
-	<div class="modal fade" id="timeTableDeleteModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<form action="deleteClass" method="post" name="form2">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">시간표 삭제</h5>
-						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						
-					</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-						<input type="submit" class="btn btn-secondary" value="추가">
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-	
-
 	<!-- Logout Modal-->
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -320,13 +265,15 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
 				<div class="modal-body">로그아웃 하시겠습니까?</div>
 				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">취소</button>
 					<a class="btn btn-primary" href="/logout">로그아웃</a>
 				</div>
 			</div>

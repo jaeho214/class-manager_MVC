@@ -24,8 +24,8 @@ public class TimeTableServiceImpl implements TimeTableService {
 	}
 	
 	@Override
-	public void insertName(String name) {
-		timeTableMapper.insertName(name);
+	public void insertName(String name, String user_id) {
+		timeTableMapper.insertName(name,user_id);
 	}
 	
 	@Override

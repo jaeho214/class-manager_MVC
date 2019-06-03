@@ -27,4 +27,14 @@ public class ClassesServiceImpl implements ClassesService {
 	public void insertClass(Classes classes) {
 		classesMapper.insertClass(classes);
 	}
+	
+	@Override
+	public void deleteClass(long tno) {
+		classesMapper.deleteClass(tno);	
+	}
+	
+	@Override
+	public void updateClass(Classes newClass) {
+		classesMapper.updateClass(newClass);
+	}
 }

@@ -1,5 +1,8 @@
 package com.dev.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -7,15 +10,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.dev.domain.Member;
+import com.dev.domain.TimeTable;
 import com.dev.service.Impl.MemberServiceImpl;
+import com.dev.service.Impl.TimeTableServiceImpl;
 
 @Controller
 public class MemberController {
 	
-	MemberServiceImpl memberService;
+	private MemberServiceImpl memberService;
+	private TimeTableServiceImpl timeTableServiceImpl;
 	
-	public MemberController(MemberServiceImpl memberService) {
+	public MemberController(MemberServiceImpl memberService, TimeTableServiceImpl timeTableServiceImpl) {
 		this.memberService = memberService;
+		this.timeTableServiceImpl = timeTableServiceImpl;
 	}
 	
 	//회원가입 페이지
@@ -31,7 +38,17 @@ public class MemberController {
 	}
 	
 	@GetMapping("/main")
-	public String main() {
+	public String main(HttpSession session) {
+		List<TimeTable> list = new ArrayList<TimeTable>();
+		//timetable리스트 가져오기
+		List<TimeTable> timetableList = timeTableServiceImpl.selectAllTimeTable();
+		Member nowMember = (Member) session.getAttribute("member");
+		timetableList.forEach((item)->{
+			if(item.getUser_id().equals(nowMember.getId())) {
+				list.add(item);
+			}
+		});
+		session.setAttribute("timetableList", list);
 		return "main";
 	}
 	
@@ -45,6 +62,18 @@ public class MemberController {
 			return "pwfail";
 		}
 		session.setAttribute("member", mem);
+		
+		List<TimeTable> list = new ArrayList<TimeTable>();
+		//timetable리스트 가져오기
+		List<TimeTable> timetableList = timeTableServiceImpl.selectAllTimeTable();
+		Member nowMember = (Member) session.getAttribute("member");
+		timetableList.forEach((item)->{
+			if(item.getUser_id().equals(nowMember.getId())) {
+				list.add(item);
+			}
+		});
+		session.setAttribute("timetableList", list);
+		
 		return "main";
 	}
 	
@@ -70,7 +99,7 @@ public class MemberController {
 	//로그아웃 완료
 	@GetMapping("/logout")
 	public String logout(Member member, HttpSession session) {
-		session.invalidate();
+		session.removeAttribute("member");
 		return "login";
 	}
 	
@@ -80,7 +109,7 @@ public class MemberController {
 		Member mem = memberService.selectAll(member.getId());
 		if(mem.getPassword().equals(member.getPassword())) {
 			memberService.delete(member.getId());
-			session.invalidate();
+			session.removeAttribute("member");
 			return "removeComplete";
 		}
 		else {

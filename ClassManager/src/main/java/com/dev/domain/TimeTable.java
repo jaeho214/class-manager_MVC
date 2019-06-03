@@ -3,6 +3,7 @@ package com.dev.domain;
 public class TimeTable {
 	private long tno;
 	private String name;
+	private String user_id;
 	
 	public long getTno() {
 		return tno;
@@ -15,6 +16,12 @@ public class TimeTable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 	
 	

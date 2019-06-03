@@ -1,8 +1,7 @@
 package com.dev.domain;
 
-import java.sql.Time;
-
 public class Classes {
+	 //private long tno; 
 	 private String number;
      private String subject;
      private String time;
@@ -16,7 +15,8 @@ public class Classes {
      
      public Classes(String number, String subject, String time, String professor, String date, String room,
            int credit, String kinds, String user_id, long table_no) {
-        this.number = number;
+        //this.tno = tno;
+    	this.number = number;
         this.subject = subject;
         this.time = time;
         this.professor = professor;
@@ -27,6 +27,8 @@ public class Classes {
         this.user_id = user_id;
         this.table_no = table_no;
      }
+     
+     
      
      @Override
     public String toString() {
