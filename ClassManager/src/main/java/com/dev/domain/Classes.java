@@ -1,5 +1,7 @@
 package com.dev.domain;
 
+import java.util.Date;
+
 public class Classes {
 	 //private long tno; 
 	 private String number;
@@ -115,8 +117,8 @@ public class Classes {
 	public void setTable_no(long table_no) {
 		this.table_no = table_no;
 	}
-     
-     
+    
+	
     
 
 }

@@ -33,7 +33,7 @@
 			location.href="/modify";
 		}
 		function cancel(){
-			location.href="/main";
+			history.back();
 		}
 		
 	</script>
