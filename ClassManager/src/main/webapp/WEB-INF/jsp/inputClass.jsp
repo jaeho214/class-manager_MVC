@@ -20,7 +20,41 @@
 <script>
 		function logout(){
 			location.href="/logout";
-		}	
+		}
+		$('#table').rowspan(0);
+		
+		$.fn.rowspan = function(colIdx, isStats) {       
+		    return this.each(function(){      
+		        var that;     
+		        $('tr', this).each(function(row) {      
+		            $('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
+		                 
+		                if ($(this).html() == $(that).html()
+		                    && (!isStats 
+		                            || isStats && $(this).prev().html() == $(that).prev().html()
+		                            )
+		                    ) {            
+		                    rowspan = $(that).attr("rowspan") || 1;
+		                    rowspan = Number(rowspan)+1;
+		 
+		                    $(that).attr("rowspan",rowspan);
+		                     
+		                    // do your action for the colspan cell here            
+		                    $(this).hide();
+		                     
+		                    //$(this).remove(); 
+		                    // do your action for the old cell here
+		                     
+		                } else {            
+		                    that = this;         
+		                }          
+		                 
+		                // set the that if not already set
+		                that = (that == null) ? this : that;      
+		            });     
+		        });    
+		    });  
+		}; 
 </script>
 
 <meta charset="utf-8">
@@ -179,30 +213,90 @@
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-					<h1 class="h3 mb-0 text-dark">시간표 등록</h1>
+					<h1 class="h3 mb-0 text-dark">시간표 등록</h1><br>
 						<c:if test="${name == null}">
 								<form action="/inputTitle" method="get" name="form1">
 									<input type="text" name="name" class="form-control-lg" placeholder="시간표 제목"> 
 									<input type="submit" class = "text-dark btn btn-lg btn-primary" value="확인">
 								</form>
-						</c:if>
+						</c:if> <br>
 						<c:if test="${name != null}">
 								<p>
 								<h1>
-									<% out.println(name); %>
+									${name }
 								</h1>
 								</p>
 						</c:if>
+															<!-- 시간표 -->
+					<table id = "table" cellspacing="10" frame="void" align="right" border="1" bordercolor="003333" width="650" height="700"> 
+						<tr align="center" > 
+							<td width="50">총 학점 : ${credit }</td> 
+							<td width="100" class="table-primary"><h3>월요일</h3></td> 
+							<td width="100" class="table-primary"><h3>화요일</h3></td> 
+							<td width="100" class="table-primary"><h3>수요일</h3></td> 
+							<td width="100" class="table-primary"><h3>목요일</h3></td> 
+							<td width="100" class="table-primary"><h3>금요일</h3></td> 
+						</tr> 
+						<tr align="center"> 
+							<td class="timetable table-primary" ><h2>09:00</h2></td>
+							<td class="timetable">${MON0900}</td> 
+							<td class="timetable">${TUE0900}</td>  
+							<td class="timetable">${WED0900}</td> 
+							<td class="timetable">${THU0900}</td> 
+							<td class="timetable">${FRI0900}</td> 
+						</tr> 
+						<tr align="center"> 
+							<td class="timetable table-primary" ><h2>10:30</h2></td> 
+							<td class="timetable">${MON1030}</td> 
+							<td class="timetable">${TUE1030}</td>  
+							<td class="timetable">${WED1030}</td> 
+							<td class="timetable">${THU1030}</td> 
+							<td class="timetable">${FRI1030}</td>  
+						</tr> 
+						<tr align="center"> 
+							<td class="timetable table-primary" ><h2>12:00</h2></td> 
+							<td class="timetable">${MON1200}</td> 
+							<td class="timetable">${TUE1200}</td>  
+							<td class="timetable">${WED1200}</td> 
+							<td class="timetable">${THU1200}</td> 
+							<td class="timetable">${FRI1200}</td> 
+						</tr> 
+						<tr align="center"> 
+							<td class="timetable table-primary" ><h2>13:30</h2></td> 
+							<td class="timetable">${MON1330}</td> 
+							<td class="timetable">${TUE1330}</td>  
+							<td class="timetable">${WED1330}</td> 
+							<td class="timetable">${THU1330}</td> 
+							<td class="timetable">${FRI1330}</td> 
+						</tr> 
+						<tr align="center"> 
+							<td class="timetable table-primary" ><h2>15:00</h2></td> 
+							<td class="timetable">${MON1500}</td> 
+							<td class="timetable">${TUE1500}</td>  
+							<td class="timetable">${WED1500}</td> 
+							<td class="timetable">${THU1500}</td> 
+							<td class="timetable">${FRI1500}</td> 
+						</tr> 
+						<tr align="center"> 
+							<td class="timetable table-primary" ><h2>16:30</h2></td> 
+							<td class="timetable">${MON1630}</td> 
+							<td class="timetable">${TUE1630}</td>  
+							<td class="timetable">${WED1630}</td> 
+							<td class="timetable">${THU1630}</td> 
+							<td class="timetable">${FRI1630}</td> 
+						</tr> 
+				</table>
+							
+				
 
-
-					
+					<br>
 					<table>
-						수업 목록<br><br>
+						수업 목록↓<br><br>
 						<c:forEach var="item" items="${classes}">
 							<tr>
 								<td>${item.subject}</td>
 								<td></td>
-								<td><a data-toggle="modal" data-target="#timeTableDeleteModal" class="font-weight-bold text-white btn btn-primary btn-sm btn-block"> 
+								<td><a href="/deleteClass?subject=${item.subject }" class="font-weight-bold text-white btn btn-primary btn-sm btn-block"> 
 									삭제
 								</a></td>
 							</tr>
@@ -215,10 +309,10 @@
 						<br><br>
 
 
-						<a href="/makeTimeTable" class="col-md-3 btn btn-success" style="height: 90px; float: none; margin: 0 auto"> 
+						<a href="/makeTimeTable?name=${name}" class="col-md-3 btn btn-success" style="height: 90px; float: none; margin: 0 auto"> 
 							<i class="fas fa-sm text-white-500"></i>
 							<h3>시간표 생성</h3>
-						</a>
+						</a>		
 				</div>
 
 				<!-- /.container-fluid -->
@@ -292,7 +386,6 @@
 	<div class="modal fade" id="timeTableDeleteModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-			<form action="deleteClass" method="post" name="form2">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">시간표 삭제</h5>
@@ -301,14 +394,13 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						
+						수업을 삭제하시겠습니까?
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-						<input type="submit" class="btn btn-secondary" value="추가">
+						<a href="/deleteClass?subject=${deleteSubject}" class="btn btn-secondary">삭제</a>
 					</div>
 				</div>
-			</form>
 		</div>
 	</div>
 	

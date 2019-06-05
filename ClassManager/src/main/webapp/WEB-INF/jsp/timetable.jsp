@@ -10,11 +10,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script>
+<script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+
+<script type="text/javascript">
 		function logout(){
 			location.href="/logout";
-		}	
+		}
+		
+		$(function(){
+		    $('#table').each(function() {
+		        var table = this;
+		        // rowspan할 tr(세로 기준)
+		        $.each([1,6], function(c, v) {
+		            var tds = $('>tbody>tr>td:nth-child(' + v + ')', table).toArray();
+		            var i = 0, j = 0;
+		            
+		            for(j = 1; j < tds.length; j ++) {
+		                if(tds[i].innerHTML != tds[j].innerHTML) {
+		                    $(tds[i]).attr('table', j - i);
+		                    i = j;
+		                    continue;
+		                }
+		                $(tds[j]).hide();
+		            }
+		            j --;
+		            
+		            if(tds[i].innerHTML == tds[j].innerHTML) {
+		                $(tds[i]).attr('table', j - i + 1);
+		            }
+		        });
+		    });
+		});
+
+
+		
 </script>
+
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,14 +57,12 @@
 <title>Main</title>
 
 <!-- Custom fonts for this template-->
-<link href="resource/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+<link href="resource/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Custom styles for this template-->
 <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
+
 
 <title>Insert title here</title>
 </head>
@@ -172,18 +201,18 @@
 
 				<div class="container-fluid">
 					<!-- 시간표 -->
-					<table cellspacing="10" align="center" border="1" bordercolor="003333" width="650" height="700"> 
+					<table id="table" cellspacing="10" frame="void" align="center" border="1" bordercolor="003333" width="650" height="700"> 
 					<p></p>
-						<tr align="center"> 
+						<tr align="center" > 
 							<td width="50"></td> 
-							<td width="100">월요일</td> 
-							<td width="100">화요일</td> 
-							<td width="100">수요일</td> 
-							<td width="100">목요일</td> 
-							<td width="100">금요일</td> 
+							<td width="100" class="table-primary"><h1>월요일</h1></td> 
+							<td width="100" class="table-primary"><h1>화요일</h1></td> 
+							<td width="100" class="table-primary"><h1>수요일</h1></td> 
+							<td width="100" class="table-primary"><h1>목요일</h1></td> 
+							<td width="100" class="table-primary"><h1>금요일</h1></td> 
 						</tr> 
-						<tr align="center" id="one"> 
-							<td>09:00</td>
+						<tr align="center"> 
+							<td class="timetable table-primary" ><h2>09:00</h2></td>
 							<td>${MON0900}</td> 
 							<td>${TUE0900}</td>  
 							<td>${WED0900}</td> 
@@ -191,7 +220,7 @@
 							<td>${FRI0900}</td> 
 						</tr> 
 						<tr align="center"> 
-							<td>10:30</td> 
+							<td class="timetable table-primary" ><h2>10:30</h2></td> 
 							<td>${MON1030}</td> 
 							<td>${TUE1030}</td>  
 							<td>${WED1030}</td> 
@@ -199,7 +228,7 @@
 							<td>${FRI1030}</td>  
 						</tr> 
 						<tr align="center"> 
-							<td>12:00</td> 
+							<td class="timetable table-primary" ><h2>12:00</h2></td> 
 							<td>${MON1200}</td> 
 							<td>${TUE1200}</td>  
 							<td>${WED1200}</td> 
@@ -207,7 +236,7 @@
 							<td>${FRI1200}</td> 
 						</tr> 
 						<tr align="center"> 
-							<td>13:30</td> 
+							<td class="timetable table-primary" ><h2>13:30</h2></td> 
 							<td>${MON1330}</td> 
 							<td>${TUE1330}</td>  
 							<td>${WED1330}</td> 
@@ -215,7 +244,7 @@
 							<td>${FRI1330}</td> 
 						</tr> 
 						<tr align="center"> 
-							<td>15:00</td> 
+							<td class="timetable table-primary" ><h2>15:00</h2></td> 
 							<td>${MON1500}</td> 
 							<td>${TUE1500}</td>  
 							<td>${WED1500}</td> 
@@ -223,7 +252,7 @@
 							<td>${FRI1500}</td> 
 						</tr> 
 						<tr align="center"> 
-							<td>16:30</td> 
+							<td class="timetable table-primary" ><h2>16:30</h2></td> 
 							<td>${MON1630}</td> 
 							<td>${TUE1630}</td>  
 							<td>${WED1630}</td> 
@@ -231,7 +260,7 @@
 							<td>${FRI1630}</td> 
 						</tr> 
 				</table>
-							
+							총 학점 : ${credit }
 				</div>
 
 			</div>

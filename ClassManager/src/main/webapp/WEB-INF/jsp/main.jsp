@@ -177,7 +177,6 @@
 						<h1>시간표 추가 +</h1>
 					</a>
 				</div>
-				<a href="/makeTimetable">테스트</a>
 			</div>
 			<!-- End of Main Content -->
 

@@ -37,17 +37,17 @@ public class AssignmentController {
         assignment.setUser_id(member.getId());
         assignmentService.InsertNewAssignment(assignment);
         
-        List<TimeTable> list = new ArrayList<TimeTable>();
-		//timetable리스트 가져오기
-		List<TimeTable> timetableList = timeTableServiceImpl.selectAllTimeTable();
-		Member nowMember = (Member) session.getAttribute("member");
-		timetableList.forEach((item)->{
-			if(item.getUser_id().equals(nowMember.getId())) {
-				list.add(item);
-			}
-		});
-		
-		session.setAttribute("timetableList", list);
+//        List<TimeTable> list = new ArrayList<TimeTable>();
+//		//timetable리스트 가져오기
+//		List<TimeTable> timetableList = timeTableServiceImpl.selectAllTimeTable();
+//		Member nowMember = (Member) session.getAttribute("member");
+//		timetableList.forEach((item)->{
+//			if(item.getUser_id().equals(nowMember.getId())) {
+//				list.add(item);
+//			}
+//		});
+//		
+//		session.setAttribute("timetableList", list);
         return "assignment";
     }
 }
