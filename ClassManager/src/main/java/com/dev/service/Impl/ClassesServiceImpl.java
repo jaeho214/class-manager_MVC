@@ -37,4 +37,10 @@ public class ClassesServiceImpl implements ClassesService {
 	public void updateClass(Classes newClass) {
 		classesMapper.updateClass(newClass);
 	}
+	
+	@Override
+	public Classes selectSubjectInfo(long table_no, String subject) {
+		Classes classes = classesMapper.selectSubjectInfo(table_no, subject);
+		return classes;
+	}
 }

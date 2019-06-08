@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 @import
 	url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600");
 
@@ -1932,6 +1930,10 @@ keyframes icon-spin { 0%{
 	-cd-color-event-4-h: 31; -
 	-cd-color-event-4-s: 89%; -
 	-cd-color-event-4-l: 68%; -
+	-cd-color-event-5: hsl(1, 25%, 75%); -
+	-cd-color-event-5-h: 1; -
+	-cd-color-event-5-s: 25%; -
+	-cd-color-event-5-l: 75%; -
 	-cd-color-text: hsl(0, 0%, 13%); -
 	-cd-color-text-h: 0; -
 	-cd-color-text-s: 0%; -
@@ -2260,6 +2262,12 @@ a {
 	{
 	background: hsl(31, 89%, 68%);
 	background: var(- -cd-color-event-4)
+}
+
+.cd-schedule__event [data-event="event-5"], .cd-schedule-modal[data-event="event-5"] .cd-schedule-modal__header-bg
+	{
+	background: hsl(1, 25%, 75%);
+	background: var(- -cd-color-event-5)
 }
 
 .cd-schedule-modal {

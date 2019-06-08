@@ -33,4 +33,15 @@ public class TimeTableServiceImpl implements TimeTableService {
 		long maxNo = timeTableMapper.selectRecentNo();
 		return maxNo;
 	}
+	
+	@Override
+	public void deleteTimeTable(long id) {
+		timeTableMapper.deleteTimeTable(id);
+	}
+	
+	@Override
+	public TimeTable selectTimeTableName(long id) {
+		TimeTable timetable = timeTableMapper.selectTimeTableName(id);
+		return timetable;
+	}
 }

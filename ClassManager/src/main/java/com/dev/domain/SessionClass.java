@@ -1,23 +1,26 @@
 package com.dev.domain;
 
-import java.util.Date;
-
 public class SessionClass{
+	private long tableNo;
 	private String startClassTime;
 	private String endClassTime;
 	private String subject;
-	
-//	public ClassDate(Date startClassTime, Date endClassTime, String subject) {
-//		this.startClassTime = startClassTime;
-//		this.endClassTime = endClassTime;
-//		this.subject = subject;
-//	}
-
 	
 
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
+
+
+	public long getTableNo() {
+		return tableNo;
+	}
+
+
+	public void setTableNo(long tableNo) {
+		this.tableNo = tableNo;
+	}
+
 
 	public String getStartClassTime() {
 		return startClassTime;

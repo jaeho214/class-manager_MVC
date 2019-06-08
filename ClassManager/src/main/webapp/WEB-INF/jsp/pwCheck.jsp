@@ -26,6 +26,12 @@
   <!-- Custom styles for this template-->
   <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <script>
+    function cancel(){
+      history.back();
+    }
+    
+  </script>
 <title>Insert title here</title>
 </head>
 <body class="bg-gradient-primary">
@@ -50,6 +56,7 @@
                                       비밀번호 확인 : <input type="password" class="form-control form-control-user" name="password" >
                     </div>
                     <input type="submit" value="회원 탈퇴" class="btn btn-primary btn-user btn-block">
+                     <input type="button" value="취소" onclick="cancel()" class="btn btn-primary btn-user btn-block">
                   </form>
                 </div>
               </div>

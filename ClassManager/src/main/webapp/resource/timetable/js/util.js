@@ -1,12 +1,9 @@
-/**
- * 
- */
 // Utility function
 function Util () {};
 
-/*
- * class manipulation functions
- */
+/* 
+	class manipulation functions
+*/
 Util.hasClass = function(el, className) {
 	if (el.classList) return el.classList.contains(className);
 	else return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
@@ -40,9 +37,9 @@ Util.setAttributes = function(el, attrs) {
   }
 };
 
-/*
- * DOM manipulation
- */
+/* 
+  DOM manipulation
+*/
 Util.getChildrenByClassName = function(el, className) {
   var children = el.children,
     childrenByClass = [];
@@ -52,9 +49,9 @@ Util.getChildrenByClassName = function(el, className) {
   return childrenByClass;
 };
 
-/*
- * Animate height of an element
- */
+/* 
+	Animate height of an element
+*/
 Util.setHeight = function(start, to, element, duration, cb) {
 	var change = to - start,
 	    currentTime = null;
@@ -71,15 +68,14 @@ Util.setHeight = function(start, to, element, duration, cb) {
     }
   };
   
-  // set the height of the element before starting animation -> fix bug on
-	// Safari
+  //set the height of the element before starting animation -> fix bug on Safari
   element.setAttribute("style", "height:"+start+"px;");
   window.requestAnimationFrame(animateHeight);
 };
 
-/*
- * Smooth Scroll
- */
+/* 
+	Smooth Scroll
+*/
 
 Util.scrollTo = function(final, duration, cb) {
   var start = window.scrollY || document.documentElement.scrollTop,
@@ -101,11 +97,11 @@ Util.scrollTo = function(final, duration, cb) {
   window.requestAnimationFrame(animateScroll);
 };
 
-/*
- * Focus utility classes
- */
+/* 
+  Focus utility classes
+*/
 
-// Move focus to an element
+//Move focus to an element
 Util.moveFocus = function (element) {
   if( !element ) element = document.getElementsByTagName("body")[0];
   element.focus();
@@ -115,9 +111,9 @@ Util.moveFocus = function (element) {
   }
 };
 
-/*
- * Misc
- */
+/* 
+  Misc
+*/
 
 Util.getIndexInArray = function(array, el) {
   return Array.prototype.indexOf.call(array, el);
@@ -132,10 +128,10 @@ Util.cssSupports = function(property, value) {
   }
 };
 
-/*
- * Polyfills
- */
-// Closest() method
+/* 
+	Polyfills
+*/
+//Closest() method
 if (!Element.prototype.matches) {
 	Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }
@@ -152,7 +148,7 @@ if (!Element.prototype.closest) {
 	};
 }
 
-// Custom Event() constructor
+//Custom Event() constructor
 if ( typeof window.CustomEvent !== "function" ) {
 
   function CustomEvent ( event, params ) {
@@ -167,9 +163,9 @@ if ( typeof window.CustomEvent !== "function" ) {
   window.CustomEvent = CustomEvent;
 }
 
-/*
- * Animation curves
- */
+/* 
+	Animation curves
+*/
 Math.easeInOutQuad = function (t, b, c, d) {
 	t /= d/2;
 	if (t < 1) return c/2*t*t + b;

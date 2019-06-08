@@ -33,7 +33,6 @@ public class AssignmentController {
     @PostMapping("/assignment.do")
     public String assignment_do(Assignment assignment,HttpSession session){
         Member member = (Member)session.getAttribute("member");
-        System.out.println(member.getId());
         assignment.setUser_id(member.getId());
         assignmentService.InsertNewAssignment(assignment);
         
