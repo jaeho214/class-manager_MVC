@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.dev.domain.SessionClass;
 import com.dev.domain.Classes;
 import com.dev.domain.Member;
+import com.dev.domain.SessionClass;
 import com.dev.domain.TimeTable;
 import com.dev.service.Impl.ClassesServiceImpl;
 import com.dev.service.Impl.TimeTableServiceImpl;
@@ -29,10 +29,7 @@ public class TimeTableController {
 	private int credit;
 	private Classes deleteClass;
 
-	private String date[] = { "MON", "TUE", "WED", "THU", "FRI" };
-	private String time[] = { "0900", "1030", "1200", "1330", "1500", "1630" };
 	private List<Classes> classList = new ArrayList<Classes>();
-//===================================================================================
 	private List<SessionClass> mon = new ArrayList<SessionClass>();
 	private List<SessionClass> tue = new ArrayList<SessionClass>();
 	private List<SessionClass> wed = new ArrayList<SessionClass>();
@@ -42,9 +39,6 @@ public class TimeTableController {
 	private Date classTime;
 	private Date endClassTime;
 
-	
-
-//===================================================================================
 	public TimeTableController(ClassesServiceImpl classesServiceImpl, TimeTableServiceImpl timeTableServiceImpl) {
 		this.classesServiceImpl = classesServiceImpl;
 		this.timeTableServiceImpl = timeTableServiceImpl;
@@ -53,9 +47,8 @@ public class TimeTableController {
 	// 시간표 등록 페이지로 이동
 	@GetMapping("/inputClass")
 	public String inputClass(HttpSession session) {
-		clearTableSession(session);
 		menuTimeTableList(session);
-
+		
 		return "inputClass";
 	}
 
@@ -64,7 +57,7 @@ public class TimeTableController {
 	public String titmetableComplete(Classes classes, HttpSession session) {
 		credit = 0;
 		classList.add(classes);
-		autoDrawTimeTable(session);
+		checkCredit(session);
 
 		return "classInputComplete";
 	}
@@ -72,7 +65,9 @@ public class TimeTableController {
 	// 수업을 하나 입력을 완료
 	@GetMapping("/inputComplete")
 	public String inputComplete(HttpSession session) {
+		credit = 0;
 		session.setAttribute("classes", classList);
+		checkCredit(session);
 
 		return "inputClass";
 	}
@@ -80,7 +75,6 @@ public class TimeTableController {
 	// 시간표 제목 삽입
 	@GetMapping("/inputTitle")
 	public String inputTitle(@RequestParam(name = "name") String name, HttpSession session) {
-		session.removeAttribute("credit");
 		session.setAttribute("name", name);
 		menuTimeTableList(session);
 
@@ -108,87 +102,63 @@ public class TimeTableController {
 		return "makeTimeTableComplete";
 	}
 
-//==============================================================================================================
+
 	// 시간표 페이지
 	@GetMapping("/timetable")
 	public String timetable(@RequestParam(value = "id") long id, HttpSession session) {
+		session.setAttribute("modifyId", id);
+		TimeTable timeTable = timeTableServiceImpl.selectTimeTableName(id);
+		session.setAttribute("thisTableName", timeTable.getName());
 		clearDateSession(session);
 		clearDateList(mon);
 		clearDateList(tue);
 		clearDateList(wed);
 		clearDateList(thu);
 		clearDateList(fri);
+
 		List<Classes> classes = classesServiceImpl.selectAllClasses(id);
 		classes.forEach((item) -> {
 			try {
 				SessionClass sessionClass = new SessionClass();
-				DateFormat dateFormat = new SimpleDateFormat("H:mm");
-				classTime = dateFormat.parse(item.getTime());
 
-				if (item.getCredit() == 3) {
-					String str[] = item.getDate().split(",");
-					for (int i = 0; i < str.length; i++) {
-						if (str.length == 1) {
-							DateFormat transFormat = new SimpleDateFormat("H:mm");
-							String startTime = transFormat.format(classTime);
-							classTime.setMinutes(classTime.getMinutes() + 165);
-							endClassTime = classTime;
-							String endTime = transFormat.format(endClassTime);
+				String str[] = item.getDate().split(",");
+				for (int i = 0; i < str.length; i++) {
+					if (str.length == 1) {
+						drawSelectedTimeTable(sessionClass, item, session);
 
-							sessionClass.setStartClassTime(startTime);
-							sessionClass.setEndClassTime(endTime);
-							sessionClass.setSubject(item.getSubject());
+						if (str[i].equals("MON")) {
+							mon.add(sessionClass);
+						} else if (str[i].equals("TUE")) {
+							tue.add(sessionClass);
+						} else if (str[i].equals("WED")) {
+							wed.add(sessionClass);
+						} else if (str[i].equals("THU")) {
+							thu.add(sessionClass);
+						} else if (str[i].equals("FRI")) {
+							fri.add(sessionClass);
+						}
 
+					} else {
+						drawSelectedTimeTable(sessionClass, item, session);
 
-							if (str[i].equals("MON")) {
-								mon.add(sessionClass);
-							} 
-							if (str[i].equals("TUE")) {
-								tue.add(sessionClass);
-							}
-							if (str[i].equals("WED")) {
-								wed.add(sessionClass);
-							}
-							if (str[i].equals("THU")) {
-								thu.add(sessionClass);
-							}
-							if (str[i].equals("FRI")) {
-								fri.add(sessionClass);
-							}
-
-						} else {
-							DateFormat transFormat = new SimpleDateFormat("H:mm");
-
-							String startTime = transFormat.format(classTime);
-							classTime.setMinutes(classTime.getMinutes() + 75);
-							endClassTime = classTime;
-							String endTime = transFormat.format(endClassTime);
-
-							sessionClass.setStartClassTime(startTime);
-							sessionClass.setEndClassTime(endTime);
-							sessionClass.setSubject(item.getSubject());
-
-							if (str[i].equals("MON")) {
-								mon.add(sessionClass);
-							} else if (str[i].equals("TUE")) {
-								tue.add(sessionClass);
-							} else if (str[i].equals("WED")) {
-								wed.add(sessionClass);
-							} else if (str[i].equals("THU")) {
-								thu.add(sessionClass);
-							} else if (str[i].equals("FRI")) {
-								fri.add(sessionClass);
-							}
+						if (str[i].equals("MON")) {
+							mon.add(sessionClass);
+						} else if (str[i].equals("TUE")) {
+							tue.add(sessionClass);
+						} else if (str[i].equals("WED")) {
+							wed.add(sessionClass);
+						} else if (str[i].equals("THU")) {
+							thu.add(sessionClass);
+						} else if (str[i].equals("FRI")) {
+							fri.add(sessionClass);
 						}
 					}
-
 				}
+
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		});
-		
-		
 
 		session.setAttribute("mon", mon);
 		session.setAttribute("tue", tue);
@@ -199,7 +169,19 @@ public class TimeTableController {
 		return "timetable";
 	}
 
-//==============================================================================================================
+	@GetMapping("/subjectInfo")
+	public String subjectInfo(@RequestParam(value = "table_no") long id,
+			@RequestParam(value = "subject") String subject, HttpSession session) {
+		Classes content = classesServiceImpl.selectSubjectInfo(id, subject);
+		session.setAttribute("content", content);
+		return "subjectInfo";
+	}
+	@GetMapping("deleteTimeTable")
+	public String deleteTimeTable(@RequestParam(value="id")long id, HttpSession session) {
+		timeTableServiceImpl.deleteTimeTable(id);
+		return "deleteTimeTableComplete";
+	}
+
 	@GetMapping("/deleteClass")
 	public String deleteClass(@RequestParam(value = "subject") String subject, HttpSession session) {
 		classList.forEach((item) -> {
@@ -210,70 +192,49 @@ public class TimeTableController {
 		classList.remove(deleteClass);
 		session.removeAttribute("classes");
 		session.setAttribute("classes", classList);
+		credit=0;
+		checkCredit(session);
 
 		return "classDeleteComplete";
 	}
 
 	@GetMapping("/deleteComplete")
-	public String deleteComplete(HttpSession session) {
-		clearTableSession(session);
-		autoDrawTimeTable(session);
+	public String deleteComplete() {
 		return "inputClass";
 	}
 
-	@GetMapping("/test")
-	public String test() {
-		return "test";
-	}
-
 //===================================메소드 생성
-	// 테이블의 session 비워주기
-	public void clearTableSession(HttpSession session) {
-		credit = 0;
-		session.removeAttribute("credit");
-		for (int i = 0; i < date.length; i++) {
-			for (int j = 0; j < time.length; j++) {
-				session.removeAttribute(date[i] + time[j]);
-			}
-		}
-	}
 
-	// 수업을 분석해서 session을 채워주는 파트
-	public void autoDrawTimeTable(HttpSession session) {
+	// 학점 체크 메소드
+	public void checkCredit(HttpSession session) {
+		session.removeAttribute("credit");
 		classList.forEach((item) -> {
-			if (item.getDate().contains(",")) {
-				String str[] = item.getDate().split(",");
-				for (int i = 0; i < str.length; i++) {
-					session.setAttribute(str[i] + item.getTime().replace(":", ""), item.getSubject());
-				}
-				credit += item.getCredit();
-			} else {
-				session.setAttribute(item.getDate() + item.getTime().replace(":", ""), item.getSubject());
-				credit += item.getCredit();
-			}
+			credit += item.getCredit();
 		});
 		session.setAttribute("credit", credit);
 	}
 
 	// timetable 페이지에서 시간표를 보여주는 파트
-	public void drawSelectedTimeTable(long id, HttpSession session) {
-		List<Classes> classes = classesServiceImpl.selectAllClasses(id);
-		Member member = (Member) session.getAttribute("member");
-		classes.forEach((item) -> {
-			if (item.getUser_id().equals(member.getId())) {
-				if (item.getDate().contains(",")) {
-					String str[] = item.getDate().split(",");
-					for (int i = 0; i < str.length; i++) {
-						session.setAttribute(str[i] + item.getTime().replace(":", ""), item.getSubject());
-					}
-					credit += item.getCredit();
-				} else {
-					session.setAttribute(item.getDate() + item.getTime().replace(":", ""), item.getSubject());
-					credit += item.getCredit();
-				}
-			}
-		});
-		session.setAttribute("credit", credit);
+	public void drawSelectedTimeTable(SessionClass sessionClass, Classes item, HttpSession session)
+			throws ParseException {
+		try {
+			DateFormat dateFormat = new SimpleDateFormat("H:mm");
+			DateFormat transFormat = new SimpleDateFormat("H:mm");
+
+			classTime = dateFormat.parse(item.getStartTime());
+			String startTime = transFormat.format(classTime);
+
+			endClassTime = dateFormat.parse(item.getEndTime());
+			String endTime = transFormat.format(endClassTime);
+
+			sessionClass.setTableNo(item.getTable_no());
+			sessionClass.setStartClassTime(startTime);
+			sessionClass.setEndClassTime(endTime);
+			sessionClass.setSubject(item.getSubject());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	// 메뉴에 timetable의 리스트를 가져오는 파트
@@ -289,7 +250,7 @@ public class TimeTableController {
 		});
 		session.setAttribute("timetableList", list);
 	}
-	//========================================================================
+
 	public void clearDateSession(HttpSession session) {
 		session.removeAttribute("mon");
 		session.removeAttribute("tue");
@@ -297,8 +258,9 @@ public class TimeTableController {
 		session.removeAttribute("thu");
 		session.removeAttribute("fri");
 	}
-	
+
 	public void clearDateList(List<SessionClass> sessionClass) {
 		sessionClass.clear();
 	}
+
 }

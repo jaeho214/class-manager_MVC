@@ -21,40 +21,7 @@
 		function logout(){
 			location.href="/logout";
 		}
-		$('#table').rowspan(0);
-		
-		$.fn.rowspan = function(colIdx, isStats) {       
-		    return this.each(function(){      
-		        var that;     
-		        $('tr', this).each(function(row) {      
-		            $('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
-		                 
-		                if ($(this).html() == $(that).html()
-		                    && (!isStats 
-		                            || isStats && $(this).prev().html() == $(that).prev().html()
-		                            )
-		                    ) {            
-		                    rowspan = $(that).attr("rowspan") || 1;
-		                    rowspan = Number(rowspan)+1;
-		 
-		                    $(that).attr("rowspan",rowspan);
-		                     
-		                    // do your action for the colspan cell here            
-		                    $(this).hide();
-		                     
-		                    //$(this).remove(); 
-		                    // do your action for the old cell here
-		                     
-		                } else {            
-		                    that = this;         
-		                }          
-		                 
-		                // set the that if not already set
-		                that = (that == null) ? this : that;      
-		            });     
-		        });    
-		    });  
-		}; 
+
 </script>
 
 <meta charset="utf-8">
@@ -89,9 +56,7 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="#">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -113,27 +78,17 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">시간표 목록</h6>
 						<c:forEach var="timetable" items="${timetableList}">
-							<a class="collapse-item" href="/timetable?id=${timetable.tno}">${timetable.name}</a> 					
+							<a class="collapse-item" href="/timetable?id=${timetable.tno}">${timetable.name} </a> 					
 						</c:forEach>
 					</div>
-				</div></li>
+				</div>
+			</li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item">
-			<a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapseUtilities"
-				aria-expanded="true" aria-controls="collapseUtilities"> <span>과제 관리</span>
+			<a class="nav-link collapsed" href="/assignment"> <span>과제 관리</span>
 			</a>
-				<div id="collapseUtilities" class="collapse"
-					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Custom Utilities:</h6>
-						<a class="collapse-item" href="utilities-color.html">Colors</a> 
-						<a class="collapse-item" href="utilities-border.html">Borders</a> 
-						<a class="collapse-item" href="utilities-animation.html">Animations</a>
-						<a class="collapse-item" href="utilities-other.html">Other</a>
-					</div>
-				</div></li>
+			</li>
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
@@ -227,74 +182,13 @@
 								</h1>
 								</p>
 						</c:if>
-															<!-- 시간표 -->
-					<table id = "table" cellspacing="10" frame="void" align="right" border="1" bordercolor="003333" width="650" height="700"> 
-						<tr align="center" > 
-							<td width="50">총 학점 : ${credit }</td> 
-							<td width="100" class="table-primary"><h3>월요일</h3></td> 
-							<td width="100" class="table-primary"><h3>화요일</h3></td> 
-							<td width="100" class="table-primary"><h3>수요일</h3></td> 
-							<td width="100" class="table-primary"><h3>목요일</h3></td> 
-							<td width="100" class="table-primary"><h3>금요일</h3></td> 
-						</tr> 
-						<tr align="center"> 
-							<td class="timetable table-primary" ><h2>09:00</h2></td>
-							<td class="timetable">${MON0900}</td> 
-							<td class="timetable">${TUE0900}</td>  
-							<td class="timetable">${WED0900}</td> 
-							<td class="timetable">${THU0900}</td> 
-							<td class="timetable">${FRI0900}</td> 
-						</tr> 
-						<tr align="center"> 
-							<td class="timetable table-primary" ><h2>10:30</h2></td> 
-							<td class="timetable">${MON1030}</td> 
-							<td class="timetable">${TUE1030}</td>  
-							<td class="timetable">${WED1030}</td> 
-							<td class="timetable">${THU1030}</td> 
-							<td class="timetable">${FRI1030}</td>  
-						</tr> 
-						<tr align="center"> 
-							<td class="timetable table-primary" ><h2>12:00</h2></td> 
-							<td class="timetable">${MON1200}</td> 
-							<td class="timetable">${TUE1200}</td>  
-							<td class="timetable">${WED1200}</td> 
-							<td class="timetable">${THU1200}</td> 
-							<td class="timetable">${FRI1200}</td> 
-						</tr> 
-						<tr align="center"> 
-							<td class="timetable table-primary" ><h2>13:30</h2></td> 
-							<td class="timetable">${MON1330}</td> 
-							<td class="timetable">${TUE1330}</td>  
-							<td class="timetable">${WED1330}</td> 
-							<td class="timetable">${THU1330}</td> 
-							<td class="timetable">${FRI1330}</td> 
-						</tr> 
-						<tr align="center"> 
-							<td class="timetable table-primary" ><h2>15:00</h2></td> 
-							<td class="timetable">${MON1500}</td> 
-							<td class="timetable">${TUE1500}</td>  
-							<td class="timetable">${WED1500}</td> 
-							<td class="timetable">${THU1500}</td> 
-							<td class="timetable">${FRI1500}</td> 
-						</tr> 
-						<tr align="center"> 
-							<td class="timetable table-primary" ><h2>16:30</h2></td> 
-							<td class="timetable">${MON1630}</td> 
-							<td class="timetable">${TUE1630}</td>  
-							<td class="timetable">${WED1630}</td> 
-							<td class="timetable">${THU1630}</td> 
-							<td class="timetable">${FRI1630}</td> 
-						</tr> 
-				</table>
-							
-				
 
 					<br>
 					<table>
 						수업 목록↓<br><br>
 						<c:forEach var="item" items="${classes}">
 							<tr>
-								<td>${item.subject}</td>
+								<td>${item.subject} => ${item.date }  ${item.startTime } ~ ${item.endTime }</td>
 								<td></td>
 								<td><a href="/deleteClass?subject=${item.subject }" class="font-weight-bold text-white btn btn-primary btn-sm btn-block"> 
 									삭제
@@ -303,6 +197,7 @@
 						</c:forEach>
 					</table>
 					<br>
+						<h3>* 총 학점 : ${credit }</h3><br>
 						<a data-toggle="modal" data-target="#timeTableModal" class="h5 mb-0 font-weight-bold text-white btn btn-primary"> 
 							수업 추가
 						</a>
@@ -357,7 +252,9 @@
 
 						<input type="text" class="form-control form-control-user" name="number" placeholder="학수번호"> <br>
 						<input type="text" class="form-control form-control-user" name="subject" placeholder="과목명"> <br>
-						시간 : <input type="time" class="form-control form-control-user" name="time" placeholder="시간"> <br>
+						시간 : <input type="time" class="form-control form-control-user" name="startTime" placeholder="시간"> <br> <h3>~</h3>
+						<input type="time" class="form-control form-control-user" name="endTime" placeholder="시간"> <br>
+						
 						요일 : 
 						<input type="checkbox" name="date" value="MON">월요일
 						<input type="checkbox" name="date" value="TUE">화요일

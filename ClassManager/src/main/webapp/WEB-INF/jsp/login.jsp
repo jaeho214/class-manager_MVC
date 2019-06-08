@@ -44,14 +44,12 @@
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" name="password" placeholder="Password">
                     </div>
-                    <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
+                    <input type="submit" value="로그인" class="btn btn-primary btn-user btn-block">
                   </form>
                   <hr>
+
                   <div class="text-center">
-                    <a class="small" href="forgot-password.html">Forgot Password?</a>
-                  </div>
-                  <div class="text-center">
-                    <a class="small" href="/signup">Create an Account!</a>
+                    <a class="small" href="/signup">회원 가입</a>
                   </div>
                 </div>
               </div>

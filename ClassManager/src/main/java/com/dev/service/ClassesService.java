@@ -9,4 +9,5 @@ public interface ClassesService {
 	public void insertClass(Classes classes);
 	public void updateClass(Classes newClass);
 	public void deleteClass(long tno);
+	public Classes selectSubjectInfo(long table_no, String subject);
 }

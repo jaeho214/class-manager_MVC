@@ -1,12 +1,11 @@
 package com.dev.domain;
 
-import java.util.Date;
-
 public class Classes {
-	 //private long tno; 
+
 	 private String number;
      private String subject;
-     private String time;
+     private String startTime;
+     private String endTime;
      private String professor;
      private String date;
      private String room;
@@ -15,12 +14,13 @@ public class Classes {
      private String user_id;
      private long table_no;
      
-     public Classes(String number, String subject, String time, String professor, String date, String room,
+     public Classes(String number, String subject, String startTime,String endTime, String professor, String date, String room,
            int credit, String kinds, String user_id, long table_no) {
-        //this.tno = tno;
+
     	this.number = number;
         this.subject = subject;
-        this.time = time;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.professor = professor;
         this.date = date;
         this.room = room;
@@ -32,10 +32,6 @@ public class Classes {
      
      
      
-     @Override
-    public String toString() {
-    	return "과목명 : " + subject;
-    }
      
 	public String getDate() {
 		return date;
@@ -62,12 +58,20 @@ public class Classes {
 		this.subject = subject;
 	}
 
-	public String getTime() {
-		return time;
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setTime(String time) {
-		this.time = time;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getProfessor() {

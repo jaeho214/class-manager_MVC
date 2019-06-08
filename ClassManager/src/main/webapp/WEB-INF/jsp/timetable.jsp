@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-  <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <% request.setCharacterEncoding("euc-kr"); %>
 
 <%
@@ -30,7 +29,6 @@
 
 <!-- Custom styles for this template-->
 <link href="resource/css/sb-admin-2.min.css" rel="stylesheet">
-
 
 </head>
 <body id="page-top">
@@ -72,20 +70,9 @@
         </div></li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item"><a class="nav-link collapsed" href="#"
-        data-toggle="collapse" data-target="#collapseUtilities"
-        aria-expanded="true" aria-controls="collapseUtilities"> <span>과제 관리</span>
-      </a>
-        <div id="collapseUtilities" class="collapse"
-          aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a> 
-            <a class="collapse-item" href="utilities-border.html">Borders</a> 
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
+      <li class="nav-item">
+      <a class="nav-link collapsed" href="/assignment"> <span>과제 관리</span>
+			</a>
       </li>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -165,6 +152,9 @@
           </ul>
 
         </nav>
+        <div class="text-center font-italic">
+        &nbsp;<h1>${thisTableName}</h1>
+        </div>
         <div class="cd-schedule cd-schedule--loading margin-top--lg margin-bottom--lg js-cd-schedule">
     <div class="cd-schedule__timeline">
       <ul>
@@ -188,7 +178,8 @@
         <li><span>17:30</span></li>
         <li><span>18:00</span></li>
       </ul>
-    </div> <!-- .cd-schedule__timeline -->
+    </div> 
+    <!-- .cd-schedule__timeline -->
   
     <div class="cd-schedule__events">
       <ul>
@@ -198,8 +189,8 @@
           <ul>
           	<c:forEach var="item" items="${mon}">
           		<li class="cd-schedule__event">
-              		<a data-start="${item.startClassTime}" data-end="${item.endClassTime}"  data-content="event-rowing-workout" data-event="event-1" href="#0">
-                		<em class="cd-schedule__name">${item.subject} ${item.startClassTime} ${item.endClassTime}</em>
+              		<a data-start="${item.startClassTime}" data-end="${item.endClassTime}"  data-content="subjectInfo?table_no=${item.tableNo}&subject=${item.subject}" data-event="event-1">
+                		<em class="cd-schedule__name">${item.subject}</em>
               		</a>
 				</li>
           	</c:forEach>
@@ -212,8 +203,8 @@
           <ul>
           	<c:forEach var="item" items="${tue}">
           		<li class="cd-schedule__event">
-              		<a data-start="${item.startClassTime}" data-end="${item.endClassTime}"  data-content="event-rowing-workout" data-event="event-2" href="#0">
-                		<em class="cd-schedule__name">${item.subject} ${item.startClassTime} ${item.endClassTime}</em>
+              		<a data-start="${item.startClassTime}" data-end="${item.endClassTime}" data-content="subjectInfo?table_no=${item.tableNo}&subject=${item.subject}" data-event="event-2">
+                		<em class="cd-schedule__name">${item.subject}</em>
               		</a>
 				</li>
           	
@@ -227,8 +218,8 @@
           <ul>
           	<c:forEach var="item" items="${wed}">
           		<li class="cd-schedule__event">
-              		<a data-start="${item.startClassTime}" data-end="${item.endClassTime}"  data-content="event-rowing-workout" data-event="event-3" href="#0">
-                		<em class="cd-schedule__name">${item.subject} ${item.startClassTime} ${item.endClassTime}</em>
+              		<a data-start="${item.startClassTime}" data-end="${item.endClassTime}"  data-content="subjectInfo?table_no=${item.tableNo}&subject=${item.subject}" data-event="event-3">
+                		<em class="cd-schedule__name">${item.subject}</em>
               		</a>
 				</li>
           	</c:forEach>
@@ -241,8 +232,8 @@
           <ul>
           	<c:forEach var="item" items="${thu}">
           		<li class="cd-schedule__event">
-              		<a data-start="${item.startClassTime}" data-end="${item.endClassTime}"  data-content="event-rowing-workout" data-event="event-4" href="#0">
-                		<em class="cd-schedule__name">${item.subject} ${item.startClassTime} ${item.endClassTime}</em>
+              		<a data-start="${item.startClassTime}" data-end="${item.endClassTime}" data-event="event-4" data-content="subjectInfo?table_no=${item.tableNo}&subject=${item.subject}">
+                		<em class="cd-schedule__name">${item.subject}</em>
               		</a>
 				</li>
           	</c:forEach>
@@ -255,8 +246,8 @@
           <ul>
           	<c:forEach var="item" items="${fri}">
           		<li class="cd-schedule__event">
-              		<a data-start="${item.startClassTime}" data-end="${item.endClassTime}"  data-content="event-rowing-workout" data-event="event-1" href="#0">
-                		<em class="cd-schedule__name">${item.subject} ${item.startClassTime} ${item.endClassTime}</em>
+              		<a data-start="${item.startClassTime}" data-end="${item.endClassTime}" data-event="event-5" data-content="subjectInfo?table_no=${item.tableNo}&subject=${item.subject}">
+                		<em class="cd-schedule__name">${item.subject}</em>
               		</a>
 				</li>
           	</c:forEach>
@@ -264,7 +255,9 @@
         </li>
       </ul>
     </div>
-  
+    <div>
+     	<a href = "/deleteTimeTable?id=${modifyId}" class="btn btn-primary">시간표 삭제</a>
+  	</div>
     <div class="cd-schedule-modal">
       <header class="cd-schedule-modal__header">
         <div class="cd-schedule-modal__content">
@@ -276,7 +269,7 @@
       </header>
   
       <div class="cd-schedule-modal__body">
-        <div class="cd-schedule-modal__event-info"></div>
+       <div class="cd-schedule-modal__event-info"></div>
         <div class="cd-schedule-modal__body-bg"></div>
       </div>
   
@@ -307,8 +300,8 @@
   <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top"> <i
-    class="fas fa-angle-up"></i>
+  <a class="scroll-to-top rounded" href="#page-top"> 
+  <i class="fas fa-angle-up"></i>
   </a>
 
   <!-- Logout Modal-->
@@ -332,9 +325,12 @@
       </div>
     </div>
   </div>
-
-  <script src="resource/timetable/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
-  <script src="resource/timetable/js/main.js"></script>
+  
+  <script src="resource/timetable/js/util.js?v=<%=System.currentTimeMillis() %>"></script> <!-- util functions included in the CodyHouse framework -->
+  <script src="resource/timetable/js/main.js?v=<%=System.currentTimeMillis() %>"></script>
+	
+  
+  
   <!-- Bootstrap core JavaScript-->
   <script src="resource/vendor/jquery/jquery.min.js"></script>
   <script src="resource/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
