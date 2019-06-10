@@ -6,7 +6,9 @@
 
 <%
 	Member member = (Member)session.getAttribute("member");
+	long fno = 0L;
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,20 +79,9 @@
 				</div></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapseUtilities"
-				aria-expanded="true" aria-controls="collapseUtilities"> <span>과제 관리</span>
+			<li class="nav-item">
+			<a class="nav-link collapsed" href="#"> <span>과제 관리</span>
 			</a>
-				<div id="collapseUtilities" class="collapse"
-					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Custom Utilities:</h6>
-						<a class="collapse-item" href="utilities-color.html">Colors</a> <a
-							class="collapse-item" href="utilities-border.html">Borders</a> <a
-							class="collapse-item" href="utilities-animation.html">Animations</a>
-						<a class="collapse-item" href="utilities-other.html">Other</a>
-					</div>
-				</div>
 			</li>
 
 			<!-- Nav Item - Pages Collapse Menu -->
@@ -172,27 +163,84 @@
 				</nav>
 				<!-- End of Topbar -->
 
-				<!-- Begin Page Content -->
-				<div class="container-fluid">
+   					 &nbsp;
+   					 <a data-toggle="modal" data-target="#assignmentModal" class="h5 mb-0 font-weight-bold text-white btn btn-primary"> 
+							과제 등록
+					 </a>	 
+					 </br>
+					 </br>
+					 </br>
+					 <h3>&nbsp;과제 목록</h3>
+    <table class="table table-hover">
+      <thead>  
+        <tr>
+        	
+            &nbsp;
+           <th>제목</th>
+            <th>내용</th>
+            <th>기한</th>
+            <th>파일</th>
+            <th>수정 / 삭제</th>
+            
+        </tr>
+      </thead>
+        
+        <c:forEach var="assignmentList" items="${assignmentList}">
+        	<tr>
+            
+            <td>${assignmentList.title}</td>
+            <td>${assignmentList.content}</td>
+            <td>${assignmentList.deadline}</td>
+            <td><a href="/fileDown?fno=${assignmentList.fno}">${assignmentList.fileoriname }</a></td>
+            <td>
+            	<div class="btn-group">
+            			 
+					<button name="update" onclick="location.href='/assignmentUpdate?ano=${assignmentList.ano}'" 
+            			class="btn btn-xs btn-warning ">수정</button>  
+            		
+            		&nbsp;
+            		<button name="delete" onclick="location.href='/assignmentDelete?ano=${assignmentList.ano}'" 
+            			class="btn btn-xs btn-danger " >삭제</button> 
+            	
+            	</div>
+  
+        </tr>
+        </c:forEach>
+    </table>
 
-					<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">과제 관리</h1>
+		<!-- 과제등록 Modal -->
+	<div class="modal fade" id="assignmentModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		
+			<form action="assignment.do" method="post" enctype="multipart/form-data">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">과제 등록</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
 					</div>
-					
-					<form method="post" action="/assignment.do">
-       				 <input type="text" name="title"  placeholder="과제 제목" /></br>
-        			 <input type="text" name="content" placeholder="과제 내용"/></br>
-        			 <input type="date" name="deadline" placeholder="기한 " /></br>
-                	<input type="hidden" name="user_id" value=""/>
-        			<input type="submit" value="등록완료" />
-        			<input type="button" value="취소" onclick="cancel()" />
-				</div>
-				<!-- /.container-fluid -->
-				
+					<div class="modal-body">
 
-    </form>
+						<input type="text" class="form-control form-control-user" name="title" placeholder="제목"> <br>
+						<input type="text" class="form-control form-control-user" name="content" placeholder="내용"> <br>
+					    <input type="date" class="form-control form-control-user" name="deadline" placeholder="기한"> <br>
+					    <input type="hidden" name="fno" value=<%out.print(fno); %>>
+						<input type="file" name="files"> <!-- 추가 -->
+
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+						<input type="submit" class="btn btn-secondary" value="추가">
+					</div>
+				</div>
+			</form>
+			
+		</div>
+	</div>
+	
+
 			</div>
 			<!-- End of Main Content -->
 
