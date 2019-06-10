@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.dev.domain.FileVO;
+import com.dev.domain.FileDTO;
 import com.dev.mapper.FileMapper;
 import com.dev.service.FileService;
 
@@ -19,7 +19,7 @@ public class FileServiceImpl implements FileService {
 	
 	
 	@Override
-	public void insertFile(FileVO fileVO) {
+	public void insertFile(FileDTO fileVO) {
 		fileMapper.insertFile(fileVO);
 	}
 	
@@ -30,7 +30,7 @@ public class FileServiceImpl implements FileService {
 	}
 	
 	@Override
-	public void updateFile(FileVO fileVO) {
+	public void updateFile(FileDTO fileVO) {
 		fileMapper.updateFile(fileVO);
 	}
 	
@@ -41,8 +41,8 @@ public class FileServiceImpl implements FileService {
 	}
 	
 	@Override
-	public FileVO selectFile(long fno) {
-		FileVO fileVO = fileMapper.selectFile(fno);
+	public FileDTO selectFile(long fno) {
+		FileDTO fileVO = fileMapper.selectFile(fno);
 		return fileVO;
 	}
 }

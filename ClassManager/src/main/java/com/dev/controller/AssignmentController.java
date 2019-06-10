@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dev.domain.Assignment;
-import com.dev.domain.FileVO;
+import com.dev.domain.FileDTO;
 import com.dev.domain.Member;
 import com.dev.service.Impl.AssignmentServiceImpl;
 import com.dev.service.Impl.FileServiceImpl;
@@ -50,7 +50,7 @@ public class AssignmentController {
  	public String assignment_do(Assignment assignment, @RequestPart MultipartFile files, HttpSession session) throws Exception{
  		Member mem = (Member) session.getAttribute("member");
  		assignment.setUser_id(mem.getId());
- 		FileVO file = new FileVO();
+ 		FileDTO file = new FileDTO();
  		if(files.isEmpty()){ //업로드할 파일이 없을 시
  			assignment.setFno(0L);
             assignmentService.InsertNewAssignment(assignment);
@@ -98,10 +98,9 @@ public class AssignmentController {
  	// 과제 수정 완료
  	@PostMapping("/assignmentUpdate.do")
  	public String assignmentUpdate_do(Assignment assignment, @RequestPart MultipartFile files, HttpSession session) throws Exception{
- 		FileVO file = new FileVO();
+ 		FileDTO file = new FileDTO();
  		
  		if(files.isEmpty()){ //업로드할 파일이 없을 시
- 			assignment.setFno(0L);
             assignmentService.AssignmentUpdate(assignment);
         }else{
             String fileName = files.getOriginalFilename(); 
@@ -148,15 +147,10 @@ public class AssignmentController {
  	@GetMapping("/assignmentDelete")
  	public String assignmentDelete(@RequestParam(value="ano") Long ano, HttpSession session) {
  		Assignment assignment = assignmentService.selectFno(ano);
- 		System.out.println(ano);
- 		System.out.println(assignment.getContent());
  		if(assignment.getFno() == null) {
- 			System.out.println("22222");
  			assignmentService.deleteAssignment(ano); 			
  		}else {
- 			System.out.println("3333");
  			assignmentService.deleteAssignment(ano); 			 			
- 			System.out.println("4444");
  			fileServiceImpl.deleteFile(assignment.getFno());
  		}
  		Member mem = (Member)session.getAttribute("member");
@@ -168,7 +162,7 @@ public class AssignmentController {
  	//파일 다운로드
  	@GetMapping("/fileDown")
  	public void fileDown(@RequestParam(value="fno")long fno, HttpServletRequest request, HttpServletResponse response) throws Exception{
- 		FileVO fileVO = fileServiceImpl.selectFile(fno);
+ 		FileDTO fileVO = fileServiceImpl.selectFile(fno);
  		//파일 업로드된 경로 
         try{
             String fileUrl = fileVO.getFileUrl();

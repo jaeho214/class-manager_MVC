@@ -18,16 +18,7 @@ public class Assignment {
         this.fileoriname = fileoriname;
     }
     
-//    public Assignment(Long ano, String title, String content, String deadline, long fno) {
-//    	this.ano = ano;
-//    	this.title = title;
-//    	this.content = content;
-//    	this.deadline = deadline;
-//    	
-//    }
-    
     public Assignment() {
-    	
     }
 
     public String getTitle() {

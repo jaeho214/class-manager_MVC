@@ -7,21 +7,21 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.dev.domain.FileVO;
+import com.dev.domain.FileDTO;
 
 public interface FileMapper {
 	@Insert("Insert into file (filename, fileoriname, fileurl) values (#{filename}, #{fileoriName}, #{fileUrl})")
-	public void insertFile(FileVO fileVO);
+	public void insertFile(FileDTO fileVO);
 	
 	@Select("Select max(fno) from file")
 	public long selectRecentNo();
 	
 	@Select("Select * from file where fno=#{fno}")
-	public FileVO selectFile(long fno);
+	public FileDTO selectFile(long fno);
 	
 	
 	@Update("Update file set filename=#{filename}, fileoriname=#{fileoriName}, fileurl=#{fileUrl} where fno=#{fno}")
-	public void updateFile(FileVO fileVO);
+	public void updateFile(FileDTO fileVO);
 	
 	@Delete("Delete from file where fno=#{fno}")
 	public void deleteFile(long fno);

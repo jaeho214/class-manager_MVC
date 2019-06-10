@@ -1,10 +1,6 @@
 package com.dev.controller;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -35,9 +31,6 @@ public class TimeTableController {
 	private List<SessionClass> wed = new ArrayList<SessionClass>();
 	private List<SessionClass> thu = new ArrayList<SessionClass>();
 	private List<SessionClass> fri = new ArrayList<SessionClass>();
-
-	private Date classTime;
-	private Date endClassTime;
 
 	public TimeTableController(ClassesServiceImpl classesServiceImpl, TimeTableServiceImpl timeTableServiceImpl) {
 		this.classesServiceImpl = classesServiceImpl;
@@ -110,17 +103,11 @@ public class TimeTableController {
 		TimeTable timeTable = timeTableServiceImpl.selectTimeTableName(id);
 		session.setAttribute("thisTableName", timeTable.getName());
 		clearDateSession(session);
-		clearDateList(mon);
-		clearDateList(tue);
-		clearDateList(wed);
-		clearDateList(thu);
-		clearDateList(fri);
+		clearDateList();
 
 		List<Classes> classes = classesServiceImpl.selectAllClasses(id);
 		classes.forEach((item) -> {
-			try {
 				SessionClass sessionClass = new SessionClass();
-
 				String str[] = item.getDate().split(",");
 				for (int i = 0; i < str.length; i++) {
 					if (str.length == 1) {
@@ -155,9 +142,7 @@ public class TimeTableController {
 					}
 				}
 
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+
 		});
 
 		session.setAttribute("mon", mon);
@@ -215,25 +200,16 @@ public class TimeTableController {
 	}
 
 	// timetable 페이지에서 시간표를 보여주는 파트
-	public void drawSelectedTimeTable(SessionClass sessionClass, Classes item, HttpSession session)
-			throws ParseException {
-		try {
-			DateFormat dateFormat = new SimpleDateFormat("H:mm");
-			DateFormat transFormat = new SimpleDateFormat("H:mm");
-
-			classTime = dateFormat.parse(item.getStartTime());
-			String startTime = transFormat.format(classTime);
-
-			endClassTime = dateFormat.parse(item.getEndTime());
-			String endTime = transFormat.format(endClassTime);
+	public void drawSelectedTimeTable(SessionClass sessionClass, Classes item, HttpSession session){
+			
+			String startTime = item.getStartTime();
+			String endTime = item.getEndTime();
 
 			sessionClass.setTableNo(item.getTable_no());
 			sessionClass.setStartClassTime(startTime);
 			sessionClass.setEndClassTime(endTime);
 			sessionClass.setSubject(item.getSubject());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+
 
 	}
 
@@ -259,8 +235,12 @@ public class TimeTableController {
 		session.removeAttribute("fri");
 	}
 
-	public void clearDateList(List<SessionClass> sessionClass) {
-		sessionClass.clear();
+	public void clearDateList() {
+		mon.clear();
+		tue.clear();
+		wed.clear();
+		thu.clear();
+		fri.clear();
 	}
 
 }
