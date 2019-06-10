@@ -1,16 +1,10 @@
 package com.dev.domain;
 
-public class FileVO {
+public class FileDTO {
 	private long fno;
     private String filename;     //저장할 파일
     private String fileoriName;  //실제 파일
     private String fileUrl;
- 
-//    public FileVO(String filename, String fileOriName, String fileUrl) {
-//    	this.filename = filename;
-//    	this.fileOriName = fileOriName;
-//    	this.fileUrl = fileUrl;
-//	}
     
     
     public long getFno() {
