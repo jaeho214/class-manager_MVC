@@ -60,7 +60,7 @@
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
-				<div class="sidebar-brand-text mx-3">ClassManager</div>
+				<div class="sidebar-brand-text mx-3">C M</div>
 			</a>
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -92,23 +92,9 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
-			<a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#collapsePages"
-				aria-expanded="true" aria-controls="collapsePages"> <span>일정 관리</span>
+			<a class="nav-link collapsed" href="/schedule"> <span>일정 관리</span>
 			</a>
-				<div id="collapsePages" class="collapse"
-					aria-labelledby="headingPages" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Login Screens:</h6>
-						<a class="collapse-item" href="login.html">Login</a> 
-						<a class="collapse-item" href="register.html">Register</a> 
-						<a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-						<div class="collapse-divider"></div>
-						<h6 class="collapse-header">Other Pages:</h6>
-						<a class="collapse-item" href="404.html">404 Page</a> 
-						<a class="collapse-item" href="blank.html">Blank Page</a>
-					</div>
-				</div></li>
+			</li>
 
 
 			<!-- Divider -->
@@ -184,12 +170,18 @@
 						</c:if>
 
 					<br>
-					<table>
-						수업 목록↓<br><br>
+					<table class="table table-hover">
+						수업 목록↓ <br><br>
+						<tr>
+							<td>과목명</td>
+							<td>요일</td>
+							<td>시간</td>
+						</tr>
 						<c:forEach var="item" items="${classes}">
 							<tr>
-								<td>${item.subject} => ${item.date }  ${item.startTime } ~ ${item.endTime }</td>
-								<td></td>
+								<td>${item.subject}</td>
+								<td>${item.date }</td>
+								<td>${item.startTime } ~ ${item.endTime }</td>
 								<td><a href="/deleteClass?subject=${item.subject }" class="font-weight-bold text-white btn btn-primary btn-sm btn-block"> 
 									삭제
 								</a></td>

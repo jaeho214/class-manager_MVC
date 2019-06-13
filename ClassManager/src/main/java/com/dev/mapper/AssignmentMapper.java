@@ -17,6 +17,10 @@ public interface AssignmentMapper {
 		@Select("SELECT title, content, deadline, fno FROM assignment WHERE ano = #{ano}")
 		public Assignment selectFno(long ano);
 		
+		// 업데이트할 게시글(게시글 번호 기준) 찾기
+		@Select("Select a.ano, a.title, a.content, a.deadline, f.fno, f.fileoriname from assignment a Left Join file f ON a.fno=f.fno where ano = #{ano}")
+		public Assignment selectAnoAssignment(Long ano);
+
 		// 과제 추가 (파일포함)
 	    @Insert("Insert into assignment (title,content,deadline,user_id,fno) values(#{title},#{content},#{deadline},#{user_id},#{fno})")
 	    public void InsertNewAssignementIncludeFile(Assignment assignment);
@@ -35,7 +39,4 @@ public interface AssignmentMapper {
 	    @Delete("Delete from assignment where ano = #{ano}")
 	    public void deleteAssignment(Long ano);
 	    
-	    // 업데이트할 게시글(게시글 번호 기준) 찾기
-	    @Select("Select a.ano, a.title, a.content, a.deadline, f.fno, f.fileoriname from assignment a Left Join file f ON a.fno=f.fno where ano = #{ano}")
-	    public Assignment selectAnoAssignment(Long ano);
 }
