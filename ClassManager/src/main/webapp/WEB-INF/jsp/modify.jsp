@@ -53,38 +53,30 @@
 					<div class="col-lg-12">
 						<div class="p-5">
 							<div class="text-center">
-								<h1 class="h4 text-gray-900 mb-4">ClassManager</h1>
+								<h1 class="h4 text-gray-900 mb-4">정보 수정</h1>
 							</div>
 							<form action="modify.do" method="post" class="user">
 								<div class="form-group">
-									아이디
-									<% out.println(member.getId()); %>
-									</br> <input type="hidden" name="id"
-										value="<% out.print(member.getId()); %>">
+									아이디  <% out.println(member.getId()); %>
+									<br> <input type="hidden" name="id" value="<% out.print(member.getId()); %>">
 								</div>
 								<div class="form-group">
-									비밀번호 <input type="password" name="password" maxlength="50">
-									</br>
+									비밀번호 <input type="password" name="password" maxlength="50"> <br>
 								</div>
 								<div class="form-group">
-									이름 <input type="text" name="name" maxlength="50"
-										value="<%out.print(member.getName());%>"> </br>
+									이름 <input type="text" name="name" maxlength="50" value="<%out.print(member.getName());%>"> <br>
 								</div>
 								<div class="form-group">
-									이메일 <input type="text" name="email" maxlength="50"
-										value="<%out.print(member.getEmail());%>"> </br>
+									이메일 <input type="text" name="email" maxlength="50" value="<%out.print(member.getEmail());%>"> <br>
 								</div>
 								<div class="form-group">
-									대학교 <input type="text" name="univ"
-										value="<%out.print(member.getUniv());%>" /> </br>
+									대학교 <input type="text" name="univ" value="<%out.print(member.getUniv());%>" /> <br>
 								</div>
 								<div class="form-group">
-									전공 <input type="text" name="major"
-										value="<%out.print(member.getMajor());%>" /> </br>
+									전공 <input type="text" name="major" value="<%out.print(member.getMajor());%>" /> <br>
 								</div>
 								<div class="form-group">
-									전화번호 <input type="text" name="phone"
-										value="<%out.print(member.getPhone());%>" /> </br>
+									전화번호 <input type="text" name="phone" value="<%out.print(member.getPhone());%>" /> <br>
 								</div>
 								<input type="submit" value="수정 완료" class="btn btn-primary btn-user btn-block"> 
 								<input type="button" value="취소" onclick="cancel()" class="btn btn-primary btn-user btn-block">

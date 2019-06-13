@@ -29,16 +29,6 @@ public class ClassesServiceImpl implements ClassesService {
 	}
 	
 	@Override
-	public void deleteClass(long tno) {
-		classesMapper.deleteClass(tno);	
-	}
-	
-	@Override
-	public void updateClass(Classes newClass) {
-		classesMapper.updateClass(newClass);
-	}
-	
-	@Override
 	public Classes selectSubjectInfo(long table_no, String subject) {
 		Classes classes = classesMapper.selectSubjectInfo(table_no, subject);
 		return classes;

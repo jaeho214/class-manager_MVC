@@ -15,11 +15,12 @@ public interface TimeTableMapper {
 	@Select("Select max(tno) from timetable")
 	public long selectRecentNo();
 	
+	@Select("Select name from timetable where tno = #{id}")
+	public TimeTable selectTimeTableName(long id);
+
 	@Insert("Insert into timetable (name, user_id) values (#{name}, #{user_id})")
 	public void insertName(String name, String user_id);
 	
-	@Select("Select name from timetable where tno = #{id}")
-	public TimeTable selectTimeTableName(long id);
 	
 	@Delete("Delete from timetable where tno = #{id}")
 	public void deleteTimeTable(long id);

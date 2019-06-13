@@ -30,8 +30,8 @@ public class FileServiceImpl implements FileService {
 	}
 	
 	@Override
-	public void updateFile(FileDTO fileVO) {
-		fileMapper.updateFile(fileVO);
+	public void updateFile(FileDTO fileDto) {
+		fileMapper.updateFile(fileDto);
 	}
 	
 	@Override
